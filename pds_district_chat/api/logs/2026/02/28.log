@@ -1,0 +1,87 @@
+[2026-02-28 02:08:32] district_user -> Warehouse deleted -> Balod@pds| Requested JSON -> {"uid":"all"} | all
+[2026-02-28 02:08:44] User -> Warehouse Added -> Balod@pds| Vishveshwar
+[2026-02-28 02:08:56] User -> Warehouse Edit -> Balod@pds| Vishveshwar
+[2026-02-28 02:08:58] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:08:59] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:09:00] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:09:01] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:10:50] district_user -> Warehouse Edit ->Balod@pds| Requested JSON -> {"name":"Vishveshwar","uniqueid":"WH_69a200d4ea01","active":"1","type":"motorable","latitude":"12","normal_rice":"1.00","state_frk_rice":"123.00","central_frk_rice":"2132.00","storage_rice":"1223.00","storage_state_frk_rice":"2132.00","storage_central_frk_rice":"13","district":"Balod","id":"13234","warehousetype":"swc","longitude":"76"}
+[2026-02-28 02:11:30] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:11:30] User -> Warehouse Active -> Balod@pds| Vishveshwar
+[2026-02-28 02:11:45] district_user -> Warehouse deleted -> Balod@pds| Requested JSON -> {"uid":"WH_69a200d4ea01"} | Vishveshwar
+[2026-02-28 02:11:57] User -> Warehouse Added -> Balod@pds| Vishveshwar
+[2026-02-28 02:12:27] district_user -> Warehouse added ->Balod@pds| Requested JSON -> {"name":"Vishav","type":"motorable","latitude":"12","normal_rice":"123","state_frk_rice":"2132","central_frk_rice":"1223","storage_rice":"2132","storage_state_frk_rice":"1323","storage_central_frk_rice":"1323","district":"Balod","id":"5565","warehousetype":"swc","longitude":"76"}
+[2026-02-28 02:12:40] User -> Warehouse Active -> Balod@pds| Vishav
+[2026-02-28 02:12:41] User -> Warehouse Active -> Balod@pds| Vishav
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA433115 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA433115 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA433115 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA492525 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA492525 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA492525 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA493210 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA493210 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA493210 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA494787 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA494787 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA494787 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495276 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495276 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495276 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495288 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495288 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA495288 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA499372 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA499372 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43003201 - MA499372 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43005301 - MA499043 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43005301 - MA499043 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499842 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499842 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499842 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499970 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499970 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013101 - MA499970 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013102 - MA499842 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013102 - MA499842 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013102 - MA499842 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013601 - MA498740 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013601 - MA498740 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43013601 - MA498740 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017001 - MA496616 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017001 - MA496616 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017001 - MA496616 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017702 - MA495657 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017702 - MA495657 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 43017702 - MA495657 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA496616 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA496616 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA496616 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA497452 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA497452 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000401 - MA497452 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000801 - MA499043 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000801 - MA499043 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49000801 - MA499043 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002201 - MA492472 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002201 - MA492472 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002201 - MA492472 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002301 - MA492472 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002301 - MA492472 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49002301 - MA492472 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA433127 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA433127 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA433127 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA493908 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA493908 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA493908 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA499043 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA499043 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49003501 - MA499043 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49004501 - MA492472 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49004501 - MA492472 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49004501 - MA492472 - Saran
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49005001 - MA499664 - Mota
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49005001 - MA499664 - Patla
+[2026-02-28 02:22:16] district User -> Save Data | approve district change yes ->Balod@pds| 49005001 - MA499664 - Saran
+[2026-02-28 02:39:52] district_user -> Warehouse Edit ->Balod@pds| Requested JSON -> {"name":"Vishveshwar","uniqueid":"WH_69a20195d483","active":"1","type":"motorable","latitude":"12","normal_rice":"123.00","state_frk_rice":"2132.00","central_frk_rice":"1223.00","district":"Balod","id":"13234","warehousetype":"swc","longitude":"76","storage_rice":"2132.00","storage_state_frk_rice":"1000","storage_central_frk_rice":"1323.00"}

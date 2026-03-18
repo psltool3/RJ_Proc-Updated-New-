@@ -1,0 +1,14 @@
+[2025-12-11 13:20:01] User -> DCP deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2025-12-11 13:24:17] User -> DCP added ->admin@pds| Requested JSON -> {"name":"abc","type":"adfa","latitude":"12.132","longitude":"25.789","district":"Baloda","id":"777","demand":"44","demand_rice":"454"}
+[2025-12-11 13:24:20] User -> DCP InActive -> admin@pds| abc
+[2025-12-11 13:24:31] User -> DCP Edit ->admin@pds| Requested JSON -> {"name":"abcd","uniqueid":"DCP_693a78a9ba8","active":false,"type":"adfa","latitude":"12.132","longitude":"25.789","district":"Baloda","id":"777","demand":"44","demand_rice":"454"}
+[2025-12-11 13:24:39] User -> DCP deleted -> admin@pds| Requested JSON -> {"uid":"DCP_693a78a9ba8"} | Abcd
+[2025-12-11 13:25:59] User -> DCP added ->admin@pds| Requested JSON -> {"name":"adfs","type":"adfa","latitude":"12.132","longitude":"25.789","district":"Baloda","id":"777","demand":"44","demand_rice":"454"}
+[2025-12-11 13:26:26] User -> DCP InActive -> admin@pds| adfs
+[2025-12-11 13:26:28] User -> DCP Active -> admin@pds| adfs
+[2025-12-11 13:28:33] User -> DCP Edit -> admin@pds| abc
+[2025-12-11 13:30:44] User -> DCP Added -> admin@pds| abc
+[2025-12-11 13:31:26] User -> DCP Added -> admin@pds| abc
+[2025-12-11 13:32:20] User -> DCP Added -> admin@pds| abc
+[2025-12-11 13:32:35] User -> DCP Active -> admin@pds| abc
+[2025-12-11 13:32:36] User -> DCP Active -> admin@pds| abc

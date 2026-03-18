@@ -1,0 +1,64 @@
+
+Schema for mill:
+0: uniqueid (varchar(50))
+1: district (varchar(100))
+2: name (varchar(255))
+3: id (varchar(100))
+4: type (varchar(50))
+5: latitude (varchar(50))
+6: longitude (varchar(50))
+7: incoming_min_mota (varchar(50))
+8: incoming_min_patla (varchar(50))
+9: incoming_min_saran (varchar(50))
+10: outgoing_min_mota (varchar(50))
+11: outgoing_min_patla (varchar(50))
+12: outgoing_min_saran (varchar(50))
+13: milling_capacity (varchar(50))
+14: milling_capacity1 (varchar(255))
+15: milling_capacity2 (varchar(255))
+16: active (varchar(10))
+
+First row of mill:
+Index 0: MILL_699ed476dc
+Index 1: Balod
+Index 2: Efg
+Index 3: MA499842
+Index 4: arwa
+Index 5: 20.94683147
+Index 6: 81.22106552
+Index 7: 8
+Index 8: 8
+Index 9: 7
+Index 10: 4870.9
+Index 11: 1660.039838
+Index 12: 10358.2
+Index 13: 170837
+Index 14: 418996
+Index 15: 303652
+Index 16: 1
+
+====================
+
+Schema for pc:
+0: uniqueid (varchar(15))
+1: district (varchar(255))
+2: name (varchar(255))
+3: id (varchar(255))
+4: latitude (varchar(255))
+5: longitude (varchar(255))
+6: mota (varchar(255))
+7: patla (varchar(255))
+8: saran (varchar(255))
+9: active (tinyint(1))
+
+First row of pc:
+Index 0: PC_6996edb02c63
+Index 1: Balod
+Index 2: abc
+Index 3: 49004501
+Index 4: 20.888375
+Index 5: 81.054457
+Index 6: 366.872
+Index 7: 86.088
+Index 8: 554.252
+Index 9: 1

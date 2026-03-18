@@ -1,0 +1,5 @@
+[2026-03-02 21:57:28] district_user -> Warehouse added ->Balod@pds| Requested JSON -> {"name":"vish","type":"motorable","latitude":"12.345","normal_rice":"12","state_frk_rice":"33","central_frk_rice":"123","district":"Balod","id":"232","warehousetype":"swc","longitude":"81.054457","storage_rice":"555","storage_state_frk_rice":"4532","storage_central_frk_rice":"4532"}
+[2026-03-02 21:57:38] User -> Warehouse Active -> Balod@pds| Vish
+[2026-03-02 21:57:38] User -> Warehouse Active -> Balod@pds| Vish
+[2026-03-02 21:58:24] district_user -> Warehouse Edit ->Balod@pds| Requested JSON -> {"name":"Vish","uniqueid":"WH_69a5ba70bd46","active":"1","type":"motorable","latitude":"12.345","normal_rice":"12.00","state_frk_rice":"33.00","central_frk_rice":"123.00","district":"Balod","id":"232","warehousetype":"swc","longitude":"81.054457","storage_rice":"123","storage_state_frk_rice":"4532.00","storage_central_frk_rice":"4532.00"}
+[2026-03-02 21:58:39] district_user -> Warehouse deleted -> Balod@pds| Requested JSON -> {"uid":"WH_69a5ba70bd46"} | Vish

@@ -1,0 +1,2 @@
+[2026-01-29 10:32:15] User -> PC Edit ->admin@pds| Requested JSON -> {"name":"Akki","uniqueid":"PC_6972fb6e0045","active":"1","latitude":"24","mota":"122","patla":"332","saran":"3222","district":"Balod","id":"10210","longitude":"76"}
+[2026-01-29 10:34:12] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Maharstra Project","uniqueid":"WH_6973312cda38","active":"1","type":"motorable","latitude":"24","normal_rice":"1.00","state_frk_rice":"1.00","central_frk_rice":"1.00","district":"Balod","id":"admin@pds111","warehousetype":"swc","longitude":"76"}

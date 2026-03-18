@@ -1,0 +1,3 @@
+[2025-12-11 15:02:17] district_user -> DCP added ->Balod@pds| Requested JSON -> {"name":"Abd","latitude":"12.132","longitude":"25.789","district":"Balod","id":"44","demand":"50","demand_rice":"454"}
+[2025-12-11 15:02:41] district_user -> DCP Edit ->Balod@pds| Requested JSON -> {"name":"Abdd","uniqueid":"DCP_693a8fa1b78","active":"1","type":"dfsdf","latitude":"12.132","longitude":"25.789","district":"Surajpur","id":"44","demand":"50","demand_rice":"454"}
+[2025-12-11 15:03:55] district_user -> DCP added ->Balod@pds| Requested JSON -> {"name":"Abd","latitude":"12.999","longitude":"25.789","district":"Balod","id":"44s","demand":"50","demand_rice":"98"}
