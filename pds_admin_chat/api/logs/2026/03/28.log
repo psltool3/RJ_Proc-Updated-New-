@@ -1,0 +1,819 @@
+[2026-03-28 00:30:38] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 00:30:48] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 00:30:49] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 10:47:22] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Beejapur","uniqueid":"WH_69c6d3e10bfc","active":"1","type":"motorable","latitude":"18.79953475","normal_rice":"725.84","state_frk_rice":"0.00","central_frk_rice":"46.75","storage_rice":"1300","storage_state_frk_rice":"0.00","storage_central_frk_rice":"67.21","district":"Bijapur","id":"6201","warehousetype":"swc","longitude":"80.80451586"}
+[2026-03-28 10:47:45] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Bhairamgarh","uniqueid":"WH_69c6d3e10c7d","active":"1","type":"motorable","latitude":"19.0068701","normal_rice":"408.79","state_frk_rice":"0.00","central_frk_rice":"30.32","storage_rice":"800","storage_state_frk_rice":"0.00","storage_central_frk_rice":"43.58","district":"Bijapur","id":"6202","warehousetype":"swc","longitude":"81.0648176"}
+[2026-03-28 10:48:04] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Bhopalpatanam","uniqueid":"WH_69c6d3e10cd2","active":"1","type":"motorable","latitude":"18.85483395","normal_rice":"308.43","state_frk_rice":"0.00","central_frk_rice":"25.34","storage_rice":"900","storage_state_frk_rice":"0.00","storage_central_frk_rice":"36.42","district":"Bijapur","id":"6203","warehousetype":"swc","longitude":"80.37436964"}
+[2026-03-28 12:26:07] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 12:26:17] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 12:50:37] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 12:50:48] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 12:50:49] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 13:20:25] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 13:20:35] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 13:53:37] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 13:53:50] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 13:56:46] User -> Warehouse deleted -> admin@pds| Requested JSON -> {"uid":"all"} | all
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sanaval
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Jawahar Nagar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Ambikapur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Ramanujgam
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Surajpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sitapur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Vishrampur (Pandonagar)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kusmi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Lakhanpur(Udaypur)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Vardrafnagar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pratappur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Rajpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Lingiyadih
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kargi Road
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pendra Road
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Lormi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bilha
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Takhatpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Jayramnagar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Marwahi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sargaon
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Barela
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Saida
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Dharmjaigarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Kharsiya
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Sarangarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Loharsing
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Raigarh CWC-1
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Lailunga
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Raigarh Kirodhimal Nagar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Baramkela
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Gharghora
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Loharsing-2(RGH)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Mohala
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Basantpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Khairagarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dongargarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Chhuriya
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Chouki
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Maanpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Tilai
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dongargaon-SWC
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Balod
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bemetara
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC-Durg
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Saja(Durg)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Gunderdehi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Doundilohara
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Doundi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Patan
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Chitoud
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kodiya
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC-Dhamdha
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Karanja Bhilai
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Gudhiyari
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhatapara CWC-1
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhatapara CWC-2
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Neora
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Balodabazar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Gariyaband
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Rajim
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Abhanpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Devbhog
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Kharora
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bilaigarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Mandir Hasoud
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Raipur CWC-4
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Arang(Raipur)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dharseevan
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kasdol
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Nayapara(Raipur)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Narayanpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Jagdalpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Karpanwand
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kondagaon
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Keshkal
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Badedongar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Ghatlohanga
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Keshlur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dornapaal
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Konta
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhoinabhata
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| ThanKhamhariya
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Berla-SWC (Rampurbhar)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Arjuni-SWC
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Hathband
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Baikunthpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Manendragarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Chirmiri-SWC
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Janakpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Akaltara
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Chandrapur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Champa
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Naila
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Baradwar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sakti
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dabara
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bodasagar
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Korba(Urga)
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Katghora
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Paali
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Jashpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kunkuri
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pathalgaon
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bagicha
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pharsabhar-SWC
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Kawardha
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bodla
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pandariya
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Hathlewa
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Mahasamund
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pithora
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Basna
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Saraypali
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bagbahra
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| SWC Dhamtari
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kurud
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sihawa
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kanker
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Charama
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhanupratappur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Naraharpur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Antagarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Pakhanjur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Junwani
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Maakdi
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Sukma
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Gidam
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dantewada
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Kuakonda
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Beejapur
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhairamgarh
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Bhopalpatanam
+[2026-03-28 13:57:04] User -> Warehouse Added -> admin@pds| Dhapai
+[2026-03-28 14:25:14] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Beejapur","uniqueid":"WH_69c790d8dcc3","active":"1","type":"motorable","latitude":"18.79953475","normal_rice":"725.84","state_frk_rice":"0.00","central_frk_rice":"460.75","storage_rice":"4000","storage_state_frk_rice":"0.00","storage_central_frk_rice":"25000","district":"Bijapur","id":"6201","warehousetype":"swc","longitude":"80.80451586"}
+[2026-03-28 14:25:42] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Bhairamgarh","uniqueid":"WH_69c790d8dd15","active":"1","type":"motorable","latitude":"19.0068701","normal_rice":"408.79","state_frk_rice":"0.00","central_frk_rice":"300.32","storage_rice":"8000","storage_state_frk_rice":"0.00","storage_central_frk_rice":"30000","district":"Bijapur","id":"6202","warehousetype":"swc","longitude":"81.0648176"}
+[2026-03-28 14:26:12] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Bhopalpatanam","uniqueid":"WH_69c790d8dd6e","active":"1","type":"motorable","latitude":"18.85483395","normal_rice":"308.43","state_frk_rice":"0.00","central_frk_rice":"250.34","storage_rice":"5000","storage_state_frk_rice":"0.00","storage_central_frk_rice":"20000","district":"Bijapur","id":"6203","warehousetype":"swc","longitude":"80.37436964"}
+[2026-03-28 14:38:31] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"SWC Dhamtari","uniqueid":"WH_69c790d8d783","active":"1","type":"motorable","latitude":"20.7210316","normal_rice":"32176.09","state_frk_rice":"0.00","central_frk_rice":"18245.34","storage_rice":"462531.30","storage_state_frk_rice":"0.00","storage_central_frk_rice":"2622824.30","district":"Dhamtari","id":"5915","warehousetype":"swc","longitude":"81.5522577"}
+[2026-03-28 14:38:49] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Kurud","uniqueid":"WH_69c790d8d7d7","active":"1","type":"motorable","latitude":"20.83344833","normal_rice":"27548.16","state_frk_rice":"0.00","central_frk_rice":"15150.76","storage_rice":"396004.80","storage_state_frk_rice":"0.00","storage_central_frk_rice":"2177823.50","district":"Dhamtari","id":"5918","warehousetype":"swc","longitude":"81.715775"}
+[2026-03-28 14:39:16] User -> Warehouse Edit ->admin@pds| Requested JSON -> {"name":"Sihawa","uniqueid":"WH_69c790d8d82c","active":"1","type":"motorable","latitude":"20.30817833","normal_rice":"13268.94","state_frk_rice":"0.00","central_frk_rice":"51537.60","storage_rice":"190741.00","storage_state_frk_rice":"0.00","storage_central_frk_rice":"1172103.00","district":"Dhamtari","id":"5919","warehousetype":"swc","longitude":"81.92119833"}

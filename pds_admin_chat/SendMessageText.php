@@ -43,9 +43,9 @@ require('Header.php');
                                                 <label class="col-md-2 control-label">Message Text*</label>
                                                 <div class="col-md-10">
                                                     <div class="input-group">
-                                                        <textarea id="message" name="message" rows="8" cols="100"></textarea>
+                                                        <textarea id="message" name="message" rows="8" cols="100" maxlength="300"></textarea>
                                                     </div>
-                                                    <span class="help-block">Message Text</span>
+                                                    <span class="help-block">Message Text (Max 300 characters)</span>
                                                 </div>
                                             </div>
 											
@@ -132,6 +132,17 @@ require('Header.php');
             
             if (message === '') {
                 alert('Please enter message');
+                return false;
+            }
+
+            if (message.length > 300) {
+                alert('Message cannot exceed 300 characters');
+                return false;
+            }
+
+            var specialCharPattern = /[<>'"&%;()]/;
+            if (specialCharPattern.test(message)) {
+                alert('Special characters are not allowed in the message');
                 return false;
             }
 			

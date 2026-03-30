@@ -156,6 +156,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
 				<li>
 					<a href="Mill.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Edit Mill</span></a>
 				</li>
+				<li>
+					<a href="MillReplica.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Edit Mill Inter</span></a>
+				</li>
 				<!--<li>
 					<a href="StoragePoint.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Edit Storage Point</span></a>
 				</li>-->

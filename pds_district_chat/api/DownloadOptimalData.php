@@ -7,7 +7,7 @@ require('../util/Connection.php');
 require('../structures/Warehouse.php');
 require('../util/SessionFunction.php');
 require('../structures/Login.php');
-session_start();
+// session_start();
 ini_set('max_execution_time', 3000);
 require('../util/Logger.php');
 require('../util/Security.php');

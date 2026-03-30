@@ -9,7 +9,7 @@ if(!SessionCheck()){
     return;
 }
 
-require('Header.php');
+
 $nonceValue = 'nonce_value';
 
 // Get the username and password from the POST data
@@ -23,7 +23,7 @@ if($_SESSION['user']!=$person->getUsername()){
     return;
 }
 
-Validate password length
+// Validate password length
 if (strlen($_POST["newpassword"]) < '8' || strlen($_POST["newusername"]) < '8') {
     echo "Username & Password must be at least 8 characters long";
     return;

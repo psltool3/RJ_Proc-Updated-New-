@@ -43,6 +43,16 @@ $dbHashedPassword = $row['password'];
 if(password_verify($person->getPassword(), $dbHashedPassword)){
 $message = $_POST['message'];
 $uniqueid = $_POST['uniqueid'];
+
+if (preg_match('/[<>\'\"&%;()]/', $message) || preg_match('/[<>\'\"&%;()]/', $uniqueid)) {
+    echo "Error : Special characters are not allowed.";
+    return;
+}
+
+if (strlen($message) > 300) {
+    echo "Error : Message cannot exceed 300 characters.";
+    return;
+}
 $date = date('Y-m-d H:i:s');
 
 if($uniqueid=="all"){

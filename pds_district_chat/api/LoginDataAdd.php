@@ -7,7 +7,7 @@ if(!SessionCheck()){
 	return;
 }
 
-require('Header.php');
+
 
 $person = new Login;
 $person->setUsername($_POST["username"]);
