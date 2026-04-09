@@ -183,7 +183,7 @@ else{
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><span class="fa fa-info"></span></span>
-                                                        <input type="text" class="form-control" id="id" name="id" value="<?php echo $id ?>" required />
+                                                       <input type="text" class="form-control" id="id" name="id" value="<?php echo $id ?>" style="color: black; font-weight: bold;" readonly required />
                                                     </div>
                                                     <span class="help-block">PC ID</span>
                                                 </div>

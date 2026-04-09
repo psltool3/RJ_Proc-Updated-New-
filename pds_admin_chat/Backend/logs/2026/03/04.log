@@ -1,4 +1,0 @@
-[2026-03-04 12:26:39] User ->  Optimization Start for leg2 Requested JSON -> ImmutableMultiDict([('month', 'march'), ('year', '2026'), ('day', '04'), ('type', 'intra')])
-[2026-03-04 12:31:17] User ->  Optimization Start for leg2 Requested JSON -> ImmutableMultiDict([('month', 'march'), ('year', '2026'), ('day', '04'), ('type', 'intra')])
-[2026-03-04 12:35:59] User ->  Optimization Start for leg2 Requested JSON -> ImmutableMultiDict([('month', 'march'), ('year', '2026'), ('day', '04'), ('type', 'intra')])
-[2026-03-04 12:39:06] User ->  Optimization Start for leg2 Requested JSON -> ImmutableMultiDict([('month', 'march'), ('year', '2026'), ('day', '04'), ('type', 'intra')])

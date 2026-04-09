@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require('util/Connection.php');
 require('util/SessionCheck.php');
 require('Header.php');
@@ -26,7 +26,7 @@ $query = "SELECT approve_district FROM ". $tablename ." WHERE to_district='$dist
 $result = mysqli_query($con,$query);
 $totalidsreviewed = mysqli_num_rows($result);
 
-$query = "SELECT new_id_district FROM ". $tablename ." WHERE to_district='$district' AND new_id_district<>''";
+$query = "SELECT approve_district FROM ".$tablename." WHERE to_district='$district' AND approve_district != 'yes'";
 $result = mysqli_query($con,$query);
 $totalidsrequested = mysqli_num_rows($result);
 
@@ -142,7 +142,7 @@ if($currentTimestamp >= $targetTimestamp) {
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Chhattisgarh Route Optimisation For PDS</li>
+                    <li class="active">Chhattisgarh Procurement Route Optimisation</li>
                 </ul>
                 <!-- END BREADCRUMB -->
 
@@ -156,7 +156,7 @@ if($currentTimestamp >= $targetTimestamp) {
                             <!-- START SIMPLE DATATABLE -->
                             <div class="panel panel-default">
 								<div class="panel-heading">
-                                    <h3 class="panel-title">Chhattisgarh Route Optimisation For PDS District - <b><?php echo $district; ?></b> <div id="timer"> <b>Time Left &nbsp </b> <span id="countdown"></span></h3>
+                                    <h3 class="panel-title">Chhattisgarh Procurement Route Optimisation - <b><?php echo $district; ?></b> <div id="timer"> <b>Time Left &nbsp </b> <span id="countdown"></span></h3>
                                 </div>
                             </div>
 							<div class="row">
@@ -171,14 +171,14 @@ if($currentTimestamp >= $targetTimestamp) {
 									<div class="card h-100"
 										style="background-color:#3FDBBC; color:white; padding:20px; font-weight: bold;">
 										<div style="font-size:25px"><?php echo $totalidsreviewed; ?></div>
-										<div style="font-size:15px">TOTAL REVIEWED</div>
+										<div style="font-size:15px">TAG IMPLEMENTED</div>
 									</div>
 								</div>
 								<div class="col-md-3 mb-4">
 									<div class="card h-100"
 										style="background-color:#FFC167; color:white; padding:20px; font-weight: bold;">
 										<div style="font-size:25px"><?php echo $totalidsrequested; ?></div>
-										<div style="font-size:15px">TOTAl TAGS CHANGED</div>
+										<div style="font-size:15px">TAG NOT IMPLEMENTED</div>
 									</div>
 								</div>
 								<div class="col-md-3 mb-4">
@@ -276,10 +276,8 @@ if($currentTimestamp >= $targetTimestamp) {
 												<th style="font-size:16px">Commodity</th>
 												<th style="font-size:16px">Quantity(Qtl)</th>
 												<th style="font-size:16px">Distance(Km)</th>
-												<th style="font-size:16px">District Reviewed</th>
-												<th style="font-size:16px">District Suggested Warehouse</th>
-												<th style="font-size:16px">District Reason for not Approve</th>
-												<th style="font-size:16px">District Suggested Warehouse Distance</th>
+												<th style="font-size:16px">Implemented / Non Implemented</th>
+												<th style="font-size:16px">District Reason for not Implementing</th>
 												<th style="font-size:16px">Admin Approved</th>										
                                             </tr>
                                         </thead>
@@ -405,27 +403,16 @@ if($currentTimestamp >= $targetTimestamp) {
 			newvalue = document.getElementById(selectedId + "_bool").value;
 			if(newvalue=="yes"){
 				modifiedData[selectedId] = "yes";
-				document.getElementById(selectedId).disabled = true;
 				document.getElementById(selectedId + "_idreason").disabled = true;
-				document.getElementById(selectedId + "_iddistance").value = '';
-				document.getElementById(selectedId + "_iddistance").disabled = true;
 			}
 			else if(newvalue=="no"){
 				modifiedData[selectedId] = "no";
-				document.getElementById(selectedId).value = '';
-				document.getElementById(selectedId).disabled = false;
 				document.getElementById(selectedId + "_idreason").value = '';
 				document.getElementById(selectedId + "_idreason").disabled = false;
-				document.getElementById(selectedId + "_iddistance").value = '';
-				document.getElementById(selectedId + "_iddistance").disabled = false;
 			}
 			else{
 				modifiedData[selectedId] = "same";
-				document.getElementById(selectedId).value = '';
-				document.getElementById(selectedId).disabled = true;
 				document.getElementById(selectedId + "_idreason").disabled = true;
-				document.getElementById(selectedId + "_iddistance").value = '';
-				document.getElementById(selectedId + "_iddistance").disabled = true;
 			}
 		}
 		
@@ -460,10 +447,6 @@ if($currentTimestamp >= $targetTimestamp) {
 					if(value!="yes" && value!=""  && value!="same"){
 						if(!modifiedReasonData.hasOwnProperty(key + "_idreason")){
 							alert("New Id " + String(value) + " Reason needs to be selected");
-							return;
-						}
-						if(!modifiedDistanceData.hasOwnProperty(key + "_iddistance")){
-							alert("New Id " + String(value) + " distance needs to be filled");
 							return;
 						}
 					}
@@ -708,45 +691,35 @@ if($currentTimestamp >= $targetTimestamp) {
 										obj[datafield]["new_id"] = "";
 									}
 									
-									if(approve_admin=="yes" && newid_admin==""){
-										var admin_approve = "<td><button class='btn btn-info'>Approved</button></td>";
-									}
-									else if(approve_admin=="yes" && newid_district!=""){
-										var admin_approve = "<td><button class='btn btn-danger'>Not Approved</button></td>";
+									if(approve_admin=="yes"){
+										var admin_approve = "<td><button class='btn btn-success'>Approve</button></td>";
 									}
 									else if(approve_admin=="no"){
-										var admin_approve = "<td><button class='btn btn-danger'>Not Approved</button></td>";
+										var admin_approve = "<td><button class='btn btn-danger'>System Generated</button></td>";
 									}
 									else if(approve_admin==""){
 										var admin_approve = "<td><button class='btn btn-warning'>Pending</button></td>";
 									}
 									
 									if(approve_district=="yes"){
-										var warehouse_id_part = "<td><button class='btn btn-info'>Reviewed</button></td><td>" + newid_district + "</td>";
+										var warehouse_id_part = "<td><button class='btn btn-info'>Implemented</button></td>";
 									}
 									else if(approve_district=="no"){
-										var warehouse_id_part = "<td><select class='form-control' onchange='enableDisable(\"" + uniqueid + "\")' id='" + uniqueid_bool + "' name='" + uniqueid_bool + "'><option value=''>Select</option><option value='yes'>Agree</option><option value='no'>Change ID</option></select></td><td><select class='form-control' onchange='handleNewIdChange(\"" + uniqueid + "\")' id='" + uniqueid + "' name='" + uniqueid + "' disabled><option value=''>Select Id</option>" + warehousepart + "</select></td>";
+										var warehouse_id_part = "<td><button class='btn btn-danger'>Non Implemented</button></td>";
 									}
 									else{
-										var warehouse_id_part = "<td><select class='form-control' onchange='enableDisable(\"" + uniqueid + "\")' id='" + uniqueid_bool + "' name='" + uniqueid_bool + "'><option value=''>Select</option><option value='yes'>Agree</option><option value='no'>Change ID</option></select></td><td><select class='form-control' onchange='handleNewIdChange(\"" + uniqueid + "\")' id='" + uniqueid + "' name='" + uniqueid + "' disabled><option value=''>Select Id</option>" + warehousepart + "</select></td>";
+										var warehouse_id_part = "<td><select class='form-control' onchange='enableDisable(\"" + uniqueid + "\")' id='" + uniqueid_bool + "' name='" + uniqueid_bool + "'><option value=''>Select</option><option value='yes'>Implemented</option><option value='no'>Non Implemented</option></select></td>";
 										uniqueid_bool_array.push(uniqueid_bool);
-									}
-									
-									if(distance_district==null || distance_district==""){
-										var newdistance = "<td><input type='text' onchange='handleDistanceChange(\"" + uniqueid_iddistance + "\")' id='" + uniqueid_iddistance + "' name='" + uniqueid_iddistance + "' disabled required /></td>";
-									}
-									else{
-										var newdistance = "<td>" + distance_district + "</td>"
 									}
 									
 									if(reason_district.length>0){
 										var district_reason = "<td>" + reason_district + "</td>";
 									}
 									else{
-										var district_reason = "<td><select class='form-control' onchange='handleReasonChange(\"" + uniqueid_idreason + "\")' id='" + uniqueid_idreason + "' name='" + uniqueid_idreason + "' disabled><option value=''>Select</option><option value='Road not accessible'>Road not accessible</option><option value='Road repair going on'>Road repair going on</option><option value='Pertaining to Distance'>Pertaining to Distance</option></select></td>";
+										var district_reason = "<td><input type='text' class='form-control' maxlength='50' onchange='handleReasonChange(\"" + uniqueid_idreason + "\")' id='" + uniqueid_idreason + "' name='" + uniqueid_idreason + "' disabled /></td>";
 									}
 									
-									$('#table_body').append(subpart1 + warehouse_id_part + district_reason + newdistance  + admin_approve + "</tr>");
+									$('#table_body').append(subpart1 + warehouse_id_part + district_reason + admin_approve + "</tr>");
 								}
 							}
 							//fetchCardDataFromServer();							

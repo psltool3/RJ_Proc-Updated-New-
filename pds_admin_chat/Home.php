@@ -478,21 +478,21 @@ require('Header.php');
 							<div class="row">
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#56A5FF; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#4A90E2; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_warehouse"></div>
 										<div style="font-size:14px">Total PC</div>
 									</div>
 								</div>
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#56A5FF; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#28A745; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_district"></div>
 										<div style="font-size:14px">Total District </div>
 									</div>
 								</div>
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#56A5FF; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#E74C3C; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_fps"></div>
 										<div style="font-size:14px">Total Mill </div>
 									</div>
@@ -500,7 +500,7 @@ require('Header.php');
 								<br><br><br><br><br>
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#F96981; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#F39C12; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_demand"></div>
 										<div style="font-size:14px">Total Procurement Mota(Qtl)</div>
 									</div>
@@ -508,7 +508,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#F96981; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#8E44AD; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_demand_rice"></div>
 										<div style="font-size:14px">Total Procurement Patla(Qtl)</div>
 									</div>
@@ -516,7 +516,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#F96981; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#1ABC9C; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_supply"></div>
 										<div style="font-size:14px">Total Procurement Saran(Qtl)</div>
 									</div>
@@ -524,7 +524,7 @@ require('Header.php');
 								<br><br><br><br><br>
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#FFA500; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#3F51B5; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_mota"></div>
 										<div style="font-size:14px">Milling Capacity Mota(Qtl)</div>
 									</div>
@@ -532,7 +532,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#FFA500; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#FF6B81; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_patla"></div>
 										<div style="font-size:14px">Milling Capacity Patla(Qtl)</div>
 									</div>
@@ -540,7 +540,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#FFA500; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#34495E; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_saran"></div>
 										<div style="font-size:14px">Milling Capacity Saran(Qtl)</div>
 									</div>
@@ -548,14 +548,14 @@ require('Header.php');
 								<br><br><br><br><br>						
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#9085AE; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#F1C40F; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_min_mota"></div>
 										<div style="font-size:14px">Incoming Min Mota</div>
 									</div>
 								</div>							
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#9085AE; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#00BCD4; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_min_patla"></div>
 										<div style="font-size:14px">Incoming Min Patla</div>
 									</div>

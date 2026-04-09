@@ -59,7 +59,7 @@ def connect_to_database():
     host = 'localhost'
     user = 'root'
     password = ''
-    database = 'chattisgarh2'
+    database = 'chhattisgarh2'
     connection = mysql.connector.connect(
         host=host, user=user, password=password, database=database
     )
@@ -148,83 +148,149 @@ def extract_db():
     if request.method == 'POST':
         connection = connect_to_database()
         warehouse_data = []
+        fci_data = []
         fps_data = []
         all_data = {}
+        applicableCount = request.form.get('applicable')
 
         if connection.is_connected():
             cursor = connection.cursor()
-            query = "SELECT * FROM pc WHERE active='1'"
+
+            # -------- FCI / Warehouse --------
+            query = "SELECT * FROM warehouse WHERE active='1'"
             cursor.execute(query)
             user = cursor.fetchall()
             
             if user:
                 for row in user:
-                    temp = {'State Name':'','WH_District': row[1], 'WH_Name': row[2], 'WH_ID': row[3], 'WH_Lat': row[4], 'WH_Long': row[5], 'Procurement_Mota': row[6],'Procurement_Patla': row[7],'Procutement_Saran': row[8],}
-                    warehouse_data.append(temp)
-                    
+                    temp = {
+                        'State Name':'',
+                        'WH_District': row[0] or 'Ambala',
+                        'WH_Name': row[1] or '',
+                        'WH_ID': row[2] or 0,
+                        'Type': row[3] or '',
+                        'WH_Lat': row[5] or 0,
+                        'WH_Long': row[6] or 0,
+                        'Allotment_Bajra': row[10] or 0,
+                        'Inventory': row[10] or 0,
+                        'Owned/Rented':'',
+                        'quantity of Wheat stored (Quintals)': 0
+                    }
+                    fci_data.append(temp)
+            else:
+                fci_data.append({
+                    'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
+                    'Type':'','WH_Lat':0,'WH_Long':0,
+                    'Allotment_Bajra':0,'Inventory':0,
+                    'Owned/Rented':'','quantity of Wheat stored (Quintals)':0
+                })
+
+            # -------- FPS --------
             cursor = connection.cursor()
-            query = "SELECT * FROM mill WHERE active='1'"
+            query = "SELECT * FROM fps WHERE active='1'"
+            cursor.execute(query)
+            user = cursor.fetchall()
+
+            if user:
+                for row in user:
+                    temp = {
+                        'State Name':'',
+                        'FPS_District': row[0] or 'Ambala',
+                        'FPS_Name': row[1] or '',
+                        'FPS_ID': row[2] or 0,
+                        'Motorable/Non-Motorable': row[3] or '',
+                        'FPS_Lat': row[4] or 0,
+                        'FPS_Long': row[5] or 0,
+                        'Demand_Wheat': (row[6] or 0) * int(applicableCount or 1),
+                        'Demand_Bajra': (row[7] or 0) * int(applicableCount or 1),
+                        'FPS_Tehsil':''
+                    }
+                    fps_data.append(temp)
+            else:
+                fps_data.append({
+                    'State Name':'','FPS_District':'Default','FPS_Name':'','FPS_ID':0,
+                    'Motorable/Non-Motorable':'','FPS_Lat':0,'FPS_Long':0,
+                    'Demand_Wheat':0,'Demand_Bajra':0,'FPS_Tehsil':''
+                })
+
+            # -------- DCP / Hafed --------
+            cursor = connection.cursor()
+            query = "SELECT * FROM dcp WHERE active='1'"
             cursor.execute(query)
             user = cursor.fetchall()
             connection.close()
 
             if user:
                 for row in user:
-                    temp = {'State Name':'','FPS_District': row[1], 'FPS_Name': row[2], 'FPS_ID': row[3], 'Type': row[4], 'FPS_Lat': row[5], 'FPS_Long': row[6], 'Storage_Mota': row[13],'Storage_Patla': row[14],'Storage_Saran': row[15],'Min_Mota': row[7],'Min_Patla': row[8],'Min_Saran': row[9] }
-                    fps_data.append(temp)
-                    #print(fps_data)
-                
+                    temp1 = {
+                        'State Name':'',
+                        'WH_District': row[0] or 'Ambala',
+                        'WH_Name': row[1] or '',
+                        'WH_ID': row[2] or 0,
+                        'Type': row[3] or '',
+                        'WH_Lat': row[4] or 0,
+                        'WH_Long': row[5] or 0,
+                        'Allotment_Wheat': row[9] or 0,
+                        'quantity of Wheat stored (Quintals)': 0
+                    }
+                    warehouse_data.append(temp1)
+            else:
+                warehouse_data.append({
+                    'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
+                    'Type':'','WH_Lat':0,'WH_Long':0,
+                    'Allotment_Wheat':0,'quantity of Wheat stored (Quintals)':0
+                })
+
+            # -------- SAVE JSON --------
             all_data["warehouse"] = warehouse_data
             all_data["fps"] = fps_data
-            json_file_path = 'output.json'
-            with open(json_file_path, 'w') as json_file:
+            all_data["fci"] = fci_data
+
+            with open('output.json', 'w') as json_file:
                 json.dump(all_data, json_file, indent=2)
+
         else:
-            json_file_path = 'output.json'
-            with open(json_file_path, 'w') as json_file:
+            with open('output.json', 'w') as json_file:
                 json.dump(all_data, json_file, indent=2)
-        
-        json_file_path = 'output.json'
-        with open(json_file_path, 'r') as json_file:
+
+        # -------- LOAD JSON --------
+        with open('output.json', 'r') as json_file:
             data = json.load(json_file)
+
+        import pandas as pd
 
         wh = pd.DataFrame(data['warehouse'])
         fps = pd.DataFrame(data['fps'])
-        wh = wh.loc[:,["State Name","WH_District",'WH_Name',"WH_ID",'WH_Lat',"WH_Long","Procurement_Mota","Procurement_Patla","Procutement_Saran"]]
-        fps = fps.loc[:,["State Name","FPS_District",'FPS_Name',"FPS_ID","Type",'FPS_Lat',"FPS_Long","Storage_Mota","Storage_Patla","Storage_Saran","Min_Mota","Min_Patla","Min_Saran"]]
+        fci = pd.DataFrame(data['fci'])
 
-        # Rename the columns to make them valid Python identifiers
-        column_mapping = {
-            
-            'WH_District': 'WH_District',
-            'WH_ID': 'WH_ID',
-            'WH_Lat': 'WH_Lat',
-            'WH_Long': 'WH_Long',
-            'WH_Name': 'WH_Name'
-        }
+        # -------- COLUMN SELECTION --------
+        fci = fci.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Bajra","Inventory","Owned/Rented","quantity of Wheat stored (Quintals)"]]
+        fps = fps.loc[:,["State Name","FPS_District",'FPS_Name',"FPS_ID","Motorable/Non-Motorable",'FPS_Lat',"FPS_Long","Demand_Wheat","Demand_Bajra","FPS_Tehsil"]]
+        wh = wh.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Wheat"]]
 
-        wh.rename(columns=column_mapping, inplace=True)
-        wh.rename(columns=column_mapping, inplace=True)
-        
-        
-        
-        def convert_to_numeric(value):
-            try:
-                return pd.to_numeric(value)
-            except ValueError:
-                return value
+        # -------- CLEANING --------
+        wh = wh.replace('', 0).fillna(0)
+        fps = fps.replace('', 0).fillna(0)
+        fci = fci.replace('', 0).fillna(0)
 
-        # Apply the function to the DataFrame
-        wh['WH_ID'] = wh['WH_ID'].apply(convert_to_numeric)
-        fps['FPS_ID'] = fps['FPS_ID'].apply(convert_to_numeric)
-        
+        wh = wh.drop_duplicates()
+        fps = fps.drop_duplicates()
+        fci = fci.drop_duplicates()
 
-        # Save DataFrames to Excel file
+        # -------- TYPE CONVERSION --------
+        wh['WH_ID'] = pd.to_numeric(wh['WH_ID'], errors='coerce').fillna(0)
+        fps['FPS_ID'] = pd.to_numeric(fps['FPS_ID'], errors='coerce').fillna(0)
+        fci['WH_ID'] = pd.to_numeric(fci['WH_ID'], errors='coerce').fillna(0)
+
+        # -------- SAVE EXCEL --------
         with pd.ExcelWriter('Backend//Data_1.xlsx') as writer:
             wh.to_excel(writer, sheet_name='A.1 Warehouse', index=False)
             fps.to_excel(writer, sheet_name='A.2 FPS', index=False)
+            fci.to_excel(writer, sheet_name='A.1 Hafed', index=False)
 
         return {"success":1}
+       
+
         
 @app.route('/extract_data', methods=['POST'])
 def extract_data():
@@ -257,6 +323,7 @@ def extract_data():
                     'Inv_Patla': row[11],
                     'Inv_Saran': row[12]
                 })
+
             cursor.execute("SELECT * FROM mill_replica WHERE active='1'")
             mill_rows = cursor.fetchall()
 
@@ -274,6 +341,7 @@ def extract_data():
                     'Inv_Patla': row[12],
                     'Inv_Saran': row[13]
                 })
+
             # ================= WAREHOUSE DATA =================
             cursor.execute("SELECT * FROM warehouse WHERE active='1'")
             wh_rows = cursor.fetchall()
@@ -297,28 +365,80 @@ def extract_data():
             connection.close()
 
             # ================= DATAFRAMES =================
+            import pandas as pd
+            import os
+
             wh = pd.DataFrame(data)
             fci = pd.DataFrame(fci_data)
             mill = pd.DataFrame(fci_data1)
 
-            if not wh.empty:
-                wh = wh.loc[:, [
-                    "SW_District", "SW_Name", "SW_ID", "SW_Lat",
-                    "SW_Long", "Storage_Mota", "Storage_Patla", "Storage_Saran","Capacity_Mota","Capacity_Patla","Capacity_Saran"
-                ]]
+            # ================= HANDLE EMPTY DATABASE =================
+            if wh.empty:
+                wh = pd.DataFrame([{
+                    "SW_District": "Balod",
+                    "SW_Name": "",
+                    "SW_ID": 0,
+                    "SW_Lat": 0,
+                    "SW_Long": 0,
+                    "Storage_Mota": 0,
+                    "Storage_Patla": 0,
+                    "Storage_Saran": 0,
+                    "Capacity_Mota": 0,
+                    "Capacity_Patla": 0,
+                    "Capacity_Saran": 0
+                }])
 
-            if not fci.empty:
-                fci = fci.loc[:, [
-                    "WH_District", "WH_Name", "WH_ID", "Type of WH",
-                    "WH_Lat", "WH_Long", "Inv_Mota", "Inv_Patla", "Inv_Saran"
-                ]]
+            if fci.empty:
+                fci = pd.DataFrame([{
+                    "WH_District": "Balod",
+                    "WH_Name": "",
+                    "WH_ID": 0,
+                    "Type of WH": "",
+                    "WH_Lat": 0,
+                    "WH_Long": 0,
+                    "Inv_Mota": 0,
+                    "Inv_Patla": 0,
+                    "Inv_Saran": 0
+                }])
 
-            if not mill.empty:
-                mill = mill.loc[:, [
-                    "WH_District", 'To_District',"WH_Name", "WH_ID", "Type of WH",
-                    "WH_Lat", "WH_Long", "Inv_Mota", "Inv_Patla", "Inv_Saran"
-                ]]
+            if mill.empty:
+                mill = pd.DataFrame([{
+                    "WH_District": "Balod",
+                    "To_District": "Balod",
+                    "WH_Name": "",
+                    "WH_ID": 0,
+                    "Type of WH": "",
+                    "WH_Lat": 0,
+                    "WH_Long": 0,
+                    "Inv_Mota": 0,
+                    "Inv_Patla": 0,
+                    "Inv_Saran": 0
+                }])
 
+            # ================= COLUMN SELECTION =================
+            wh = wh.loc[:, [
+                "SW_District", "SW_Name", "SW_ID", "SW_Lat",
+                "SW_Long", "Storage_Mota", "Storage_Patla", "Storage_Saran",
+                "Capacity_Mota", "Capacity_Patla", "Capacity_Saran"
+            ]]
+
+            fci = fci.loc[:, [
+                "WH_District", "WH_Name", "WH_ID", "Type of WH",
+                "WH_Lat", "WH_Long", "Inv_Mota", "Inv_Patla", "Inv_Saran"
+            ]]
+
+            mill = mill.loc[:, [
+                "WH_District", "To_District", "WH_Name", "WH_ID",
+                "Type of WH", "WH_Lat", "WH_Long",
+                "Inv_Mota", "Inv_Patla", "Inv_Saran"
+            ]]
+
+            # ================= CLEANING =================
+            wh = wh.drop_duplicates()
+            fci = fci.drop_duplicates()
+            mill = mill.drop_duplicates()
+
+           
 
             # ================= EXCEL EXPORT =================
             os.makedirs("Backend", exist_ok=True)
@@ -331,7 +451,8 @@ def extract_data():
             response = {
                 "status": 1,
                 "data": data,
-                "fci_data": fci_data
+                "fci_data": fci_data,
+                "fci_data1": fci_data1
             }
 
             return convert_decimal(response)
@@ -341,6 +462,7 @@ def extract_data():
 
     else:
         return {"success": 0, "message": "Invalid request method"}
+
         
 @app.route('/fetchdatafromsql', methods=['GET'])        
 def fetch_data_from_sql():
@@ -839,8 +961,8 @@ def save_to_database(month, year, day):
     while (check_id_exists(connection,random_id)):
         random_id = generate_random_id()
     table_name = "optimiseddata_" + str(random_id)
-    warehouse_table = "warehouse_" + str(random_id)
-    fps_table = "fps_" + str(random_id)
+    pc_table = "pc_" + str(random_id)
+    mill_table = "mill_" + str(random_id)
     if connection.is_connected():
         cursor = connection.cursor()
         current_datetime = datetime.now()
@@ -849,30 +971,30 @@ def save_to_database(month, year, day):
             existingid = get_year_month_exists(connection, month, year, day);
             sql = "UPDATE optimised_table set last_updated='" + formatted_datetime + "' , cost = '""' WHERE id='" + existingid + "'"; 
             table_name = "optimiseddata_" + str(existingid)
-            warehouse_table = "warehouse_" + str(existingid)
-            fps_table = "fps_" + str(existingid)
+            pc_table = "pc_" + str(existingid)
+            mill_table = "mill_" + str(existingid)
             cursor.execute(sql)
         else:
             sql = "INSERT INTO optimised_table (id, month, year, day,last_updated) VALUES ('" + random_id + "','" + month + "','" + year + "','" + day + "','" + formatted_datetime + "')";
             cursor.execute(sql)
         connection.commit()
-        warehouse_drop_query = 'DROP TABLE IF EXISTS ' + warehouse_table;
-        cursor.execute(warehouse_drop_query)
+        pc_drop_query = 'DROP TABLE IF EXISTS ' + pc_table;
+        cursor.execute(pc_drop_query)
         connection.commit()
-        create_warehouse_query = ("CREATE TABLE " + warehouse_table + " (district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, mota VARCHAR(100) NOT NULL, patla VARCHAR(100) NOT NULL, saran VARCHAR(100) NOT NULL, uniqueid VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1')")
-        cursor.execute(create_warehouse_query)
+        create_pc_query = ("CREATE TABLE " + pc_table + " (uniqueid VARCHAR(100) NOT NULL, district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, mota VARCHAR(100) NOT NULL, patla VARCHAR(100) NOT NULL, saran VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1')")
+        cursor.execute(create_pc_query)
         connection.commit()
-        copy_warehouse_data = ("INSERT INTO " + warehouse_table + " SELECT * FROM pc WHERE active='1'")
-        cursor.execute(copy_warehouse_data)
+        copy_pc_data = ("INSERT INTO " + pc_table + " SELECT * FROM pc WHERE active='1'")
+        cursor.execute(copy_pc_data)
         connection.commit()
         
-        fps_drop_query = 'DROP TABLE IF EXISTS ' + fps_table;
-        cursor.execute(fps_drop_query)
-        create_fps_query = ("CREATE TABLE " + fps_table + " (district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL,longitude VARCHAR(100) NOT NULL,incoming_min_mota VARCHAR(100) NOT NULL,incoming_min_patla VARCHAR(100) NOT NULL,incoming_min_saran VARCHAR(100) NOT NULL, uniqueid VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1',outgoing_min_mota VARCHAR(100) NOT NULL,outgoing_min_patla VARCHAR(100) NOT NULL,outgoing_min_saran VARCHAR(100) NOT NULL,milling_capacity VARCHAR(100) NOT NULL,milling_capacity1 VARCHAR(100) NOT NULL,milling_capacity2 VARCHAR(100) NOT NULL)")
-        cursor.execute(create_fps_query)
+        mill_drop_query = 'DROP TABLE IF EXISTS ' + mill_table;
+        cursor.execute(mill_drop_query)
+        create_mill_query = ("CREATE TABLE " + mill_table + " (uniqueid VARCHAR(100) NOT NULL, district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, incoming_min_mota VARCHAR(100) NOT NULL, incoming_min_patla VARCHAR(100) NOT NULL, incoming_min_saran VARCHAR(100) NOT NULL, outgoing_min_mota VARCHAR(100) NOT NULL, outgoing_min_patla VARCHAR(100) NOT NULL, outgoing_min_saran VARCHAR(100) NOT NULL, milling_capacity VARCHAR(100) NOT NULL, milling_capacity1 VARCHAR(100) NOT NULL, milling_capacity2 VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1')")
+        cursor.execute(create_mill_query)
         connection.commit()
-        copy_fps_data = ("INSERT INTO " + fps_table + " SELECT * FROM mill WHERE active='1'")
-        cursor.execute(copy_fps_data)
+        copy_mill_data = ("INSERT INTO " + mill_table + " SELECT * FROM mill WHERE active='1'")
+        cursor.execute(copy_mill_data)
         connection.commit()
         
         excel_file_path = 'Backend//Result_Sheet.xlsx'
@@ -904,8 +1026,8 @@ def save_to_database_leg1(month, year, day):
     while (check_id_exists_leg1(connection,random_id)):
         random_id = generate_random_id()
     table_name = "optimiseddata_leg1_" + str(random_id)
+    mill_table = "mill_leg1_" + str(random_id)
     warehouse_table = "warehouse_leg1_" + str(random_id)
-    fci_table = "fci_leg1_" + str(random_id)
     if connection.is_connected():
         cursor = connection.cursor()
         current_datetime = datetime.now()
@@ -915,32 +1037,32 @@ def save_to_database_leg1(month, year, day):
             sql = "UPDATE optimised_table_leg1 set last_updated='" + formatted_datetime + "' WHERE id='" + existingid + "'"; 
             #print(sql)
             table_name = "optimiseddata_leg1_" + str(existingid)
+            mill_table = "mill_leg1_" + str(existingid)
             warehouse_table = "warehouse_leg1_" + str(existingid)
-            fci_table = "fci_leg1_" + str(existingid)
             cursor.execute(sql)
         else:
             sql = "INSERT INTO optimised_table_leg1 (id, month, year, day, last_updated) VALUES ('" + random_id + "','" + month + "','" + year + "','" + day + "','" + formatted_datetime + "')";
             cursor.execute(sql)
         
         connection.commit()
-        warehouse_drop_query = 'DROP TABLE IF EXISTS ' + warehouse_table;
-        #print(warehouse_drop_query)
-        cursor.execute(warehouse_drop_query)
+        mill_drop_query = 'DROP TABLE IF EXISTS ' + mill_table;
+        #print(mill_drop_query)
+        cursor.execute(mill_drop_query)
         connection.commit()
-        create_warehouse_query = ("CREATE TABLE " + warehouse_table + " (district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL,longitude VARCHAR(100) NOT NULL,incoming_min_mota VARCHAR(100) NOT NULL,incoming_min_patla VARCHAR(100) NOT NULL,incoming_min_saran VARCHAR(100) NOT NULL, uniqueid VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1',outgoing_min_mota VARCHAR(100) NOT NULL,outgoing_min_patla VARCHAR(100) NOT NULL,outgoing_min_saran VARCHAR(100) NOT NULL,milling_capacity VARCHAR(100) NOT NULL,milling_capacity1 VARCHAR(100) NOT NULL,milling_capacity2 VARCHAR(100) NOT NULL)")
-        cursor.execute(create_warehouse_query)
+        create_mill_query = ("CREATE TABLE " + mill_table + " (uniqueid VARCHAR(100) NOT NULL, district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, incoming_min_mota VARCHAR(100) NOT NULL, incoming_min_patla VARCHAR(100) NOT NULL, incoming_min_saran VARCHAR(100) NOT NULL, outgoing_min_mota VARCHAR(100) NOT NULL, outgoing_min_patla VARCHAR(100) NOT NULL, outgoing_min_saran VARCHAR(100) NOT NULL, milling_capacity VARCHAR(100) NOT NULL, milling_capacity1 VARCHAR(100) NOT NULL, milling_capacity2 VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1')")
+        cursor.execute(create_mill_query)
         connection.commit()
-        copy_warehouse_data = ("INSERT INTO " + warehouse_table + " SELECT * FROM mill WHERE active='1'")
-        cursor.execute(copy_warehouse_data)
+        copy_mill_data = ("INSERT INTO " + mill_table + " SELECT * FROM mill WHERE active='1'")
+        cursor.execute(copy_mill_data)
         connection.commit()
         
-        fci_drop_query = 'DROP TABLE IF EXISTS ' + fci_table;
-        cursor.execute(fci_drop_query)
-        create_fci_query = ("CREATE TABLE " + fci_table + " (district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, warehousetype VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, uniqueid VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1',normal_rice VARCHAR(100) NOT NULL,state_frk_rice VARCHAR(100) NOT NULL,central_frk_rice VARCHAR(100) NOT NULL,storage_rice VARCHAR(100) NOT NULL,storage_state_frk_rice VARCHAR(100) NOT NULL,storage_central_frk_rice VARCHAR(100) NOT NULL )")
-        cursor.execute(create_fci_query)
+        warehouse_drop_query = 'DROP TABLE IF EXISTS ' + warehouse_table;
+        cursor.execute(warehouse_drop_query)
+        create_warehouse_query = ("CREATE TABLE " + warehouse_table + " (district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, warehousetype VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, uniqueid VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1',normal_rice VARCHAR(100) NOT NULL,state_frk_rice VARCHAR(100) NOT NULL,central_frk_rice VARCHAR(100) NOT NULL,storage_rice VARCHAR(100) NOT NULL,storage_state_frk_rice VARCHAR(100) NOT NULL,storage_central_frk_rice VARCHAR(100) NOT NULL )")
+        cursor.execute(create_warehouse_query)
         connection.commit()
-        copy_fci_data = ("INSERT INTO " + fci_table + " SELECT * FROM warehouse WHERE active='1' AND warehousetype='fci'")
-        cursor.execute(copy_fci_data)
+        copy_warehouse_data = ("INSERT INTO " + warehouse_table + " SELECT * FROM warehouse WHERE active='1'")
+        cursor.execute(copy_warehouse_data)
         connection.commit()
         
         excel_file_path = 'Backend//Result_Sheet_leg1.xlsx'
@@ -1215,19 +1337,26 @@ def processFile():
                 if FCI['WH_District'][i] != FPS['FPS_District'][j]:
                     model += Allocation1[i][j] == 0   
                     
-        model.solve(CPLEX_CMD(options=['set mip tolerances mipgap 0.03',"set emphasis memory y"]))
         
+        model.solve(CPLEX_CMD(options=[
+            "set mip tolerances mipgap 0.01",
+            "set emphasis memory y",
+            "set mip strategy file 3",
+            "set workmem 2048"
+        ]))
         
         status = LpStatus[model.status]
-        if status == "Infeasible" or status == "Unbounded" or status == "NotSolved" or status == "Undefined":
-           print("Problem is infeasible or unbounded.")
-           data = {}
-           data['status'] = 0
-           data['message'] = "Infeasible or Unbounded Solution"
-           json_data = json.dumps(data)
-           json_object = json.loads(json_data)
-           return json.dumps(json_object, indent=1)
- 
+
+        if status != "Optimal":
+            print("Optimization failed:", status)
+
+            data = {
+                "status": 0,
+                "message": "Infeasible or Unbounded Solution"
+            }
+
+            return json.dumps(data, indent=1)
+            
         if stop_process==True:
             data = {}
             data['status'] = 0
@@ -1325,6 +1454,8 @@ def processFile():
             json_object = json.loads(json_data)
             return json.dumps(json_object, indent=1)
         
+        df31['WH_ID'] = df31['WH_ID'].astype(str)
+        FCI['WH_ID'] = FCI['WH_ID'].astype(str)
         df4 = pd.merge(df31, FCI, on='WH_ID', how='inner')
         #df4 = pd.merge(df31, FCI, on='WH_ID', how='inner')
         df4 = df4[[
@@ -1418,21 +1549,48 @@ def processFile():
         
         input = pd.ExcelFile('Backend/Data_1.xlsx')
         node1 = pd.read_excel(input,sheet_name="A.1 Warehouse")
-        node1["concatenate"]= node1['WH_Lat'].astype(str) + ',' + node1['WH_Long'].astype(str)
+        node1["concatenate"]= node1['WH_Lat'].round(3).astype(str) + ',' + node1['WH_Long'].round(3).astype(str)
+        
         node2 = pd.read_excel(input,sheet_name="A.2 FPS")
-        node2["concatenate1"]= node2['FPS_Lat'].astype(str) + ',' + node2['FPS_Long'].astype(str)
-        #Distance = pd.ExcelFile('Backend//Distance_Initial_L2.xlsx')
+        node2["concatenate1"]= node2['FPS_Lat'].round(3).astype(str) + ',' + node2['FPS_Long'].round(3).astype(str)
+        
         DistanceBing = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='BG_BG')
         Warehouse = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='Warehouse')
         FPS = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='FPS')
+       
+        
+        Warehouse['Lat_Long_r'] = (
+            Warehouse['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+        
+        FPS['Lat_Long_r'] = (
+            FPS['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+
+        
         node1 = node1[['WH_ID', 'WH_Lat', 'WH_Long','concatenate']]
         War = pd.merge(node1, Warehouse, on='WH_ID')
-        df1_w = War[War['concatenate'] != War['Lat_Long']]
+        df1_w = War[War['concatenate'] != War['Lat_Long_r']]
         Warehouse_ID = df1_w['WH_ID'].unique()
+        
+        
+        
         node2 = node2[['FPS_ID', 'FPS_Lat', 'FPS_Long','concatenate1']]
         FPS1 = pd.merge(node2, FPS, on='FPS_ID')
-        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long']]
+        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long_r']]
         FPS_ID = df1_f['FPS_ID'].unique()
+
+
         BG_BG = DistanceBing
         Distance1 = BG_BG.drop(columns=BG_BG.columns[BG_BG.columns.isin(Warehouse_ID)])
         Distance2 =Distance1.T
@@ -1765,18 +1923,25 @@ def processFile():
                 if FCI['WH_District'][i] != FPS['FPS_District'][j]:
                     model += Allocation2[i][j] == 0   
                     
-        model.solve(CPLEX_CMD(options=['set mip tolerances mipgap 0.03',"set emphasis memory y"]))
+        model.solve(CPLEX_CMD(options=[
+            "set mip tolerances mipgap 0.01",
+            "set emphasis memory y",
+            "set mip strategy file 3",
+            "set workmem 2048"
+        ]))
         
         
         status = LpStatus[model.status]
-        if status == "Infeasible" or status == "Unbounded" or status == "NotSolved" or status == "Undefined":
-           print("Problem is infeasible or unbounded.")
-           data = {}
-           data['status'] = 0
-           data['message'] = "Infeasible or Unbounded Solution"
-           json_data = json.dumps(data)
-           json_object = json.loads(json_data)
-           return json.dumps(json_object, indent=1)
+
+        if status != "Optimal":
+            print("Optimization failed:", status)
+
+            data = {
+                "status": 0,
+                "message": "Infeasible or Unbounded Solution"
+            }
+
+            return json.dumps(data, indent=1)
  
         if stop_process==True:
             data = {}
@@ -1968,21 +2133,48 @@ def processFile():
         
         input = pd.ExcelFile('Backend/Data_1.xlsx')
         node1 = pd.read_excel(input,sheet_name="A.1 Warehouse")
-        node1["concatenate"]= node1['WH_Lat'].astype(str) + ',' + node1['WH_Long'].astype(str)
+        node1["concatenate"]= node1['WH_Lat'].round(3).astype(str) + ',' + node1['WH_Long'].round(3).astype(str)
+        
         node2 = pd.read_excel(input,sheet_name="A.2 FPS")
-        node2["concatenate1"]= node2['FPS_Lat'].astype(str) + ',' + node2['FPS_Long'].astype(str)
-        #Distance = pd.ExcelFile('Backend//Distance_Initial_L2.xlsx')
+        node2["concatenate1"]= node2['FPS_Lat'].round(3).astype(str) + ',' + node2['FPS_Long'].round(3).astype(str)
+        
         DistanceBing = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='BG_BG')
         Warehouse = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='Warehouse')
         FPS = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='FPS')
+       
+        
+        Warehouse['Lat_Long_r'] = (
+            Warehouse['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+        
+        FPS['Lat_Long_r'] = (
+            FPS['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+
+        
         node1 = node1[['WH_ID', 'WH_Lat', 'WH_Long','concatenate']]
         War = pd.merge(node1, Warehouse, on='WH_ID')
-        df1_w = War[War['concatenate'] != War['Lat_Long']]
+        df1_w = War[War['concatenate'] != War['Lat_Long_r']]
         Warehouse_ID = df1_w['WH_ID'].unique()
+        
+        
+        
         node2 = node2[['FPS_ID', 'FPS_Lat', 'FPS_Long','concatenate1']]
         FPS1 = pd.merge(node2, FPS, on='FPS_ID')
-        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long']]
+        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long_r']]
         FPS_ID = df1_f['FPS_ID'].unique()
+
+
         BG_BG = DistanceBing
         Distance1 = BG_BG.drop(columns=BG_BG.columns[BG_BG.columns.isin(Warehouse_ID)])
         Distance2 =Distance1.T
@@ -2315,18 +2507,25 @@ def processFile():
                 if FCI['WH_District'][i] != FPS['FPS_District'][j]:
                     model += Allocation3[i][j] == 0   
                     
-        model.solve(CPLEX_CMD(options=['set mip tolerances mipgap 0.03',"set emphasis memory y"]))
+        model.solve(CPLEX_CMD(options=[
+            "set mip tolerances mipgap 0.01",
+            "set emphasis memory y",
+            "set mip strategy file 3",
+            "set workmem 2048"
+        ]))
         
         
         status = LpStatus[model.status]
-        if status == "Infeasible" or status == "Unbounded" or status == "NotSolved" or status == "Undefined":
-           print("Problem is infeasible or unbounded.")
-           data = {}
-           data['status'] = 0
-           data['message'] = "Infeasible or Unbounded Solution"
-           json_data = json.dumps(data)
-           json_object = json.loads(json_data)
-           return json.dumps(json_object, indent=1)
+
+        if status != "Optimal":
+            print("Optimization failed:", status)
+
+            data = {
+                "status": 0,
+                "message": "Infeasible or Unbounded Solution"
+            }
+
+            return json.dumps(data, indent=1)
  
         if stop_process==True:
             data = {}
@@ -2518,21 +2717,48 @@ def processFile():
         
         input = pd.ExcelFile('Backend/Data_1.xlsx')
         node1 = pd.read_excel(input,sheet_name="A.1 Warehouse")
-        node1["concatenate"]= node1['WH_Lat'].astype(str) + ',' + node1['WH_Long'].astype(str)
+        node1["concatenate"]= node1['WH_Lat'].round(3).astype(str) + ',' + node1['WH_Long'].round(3).astype(str)
+        
         node2 = pd.read_excel(input,sheet_name="A.2 FPS")
-        node2["concatenate1"]= node2['FPS_Lat'].astype(str) + ',' + node2['FPS_Long'].astype(str)
-        #Distance = pd.ExcelFile('Backend//Distance_Initial_L2.xlsx')
+        node2["concatenate1"]= node2['FPS_Lat'].round(3).astype(str) + ',' + node2['FPS_Long'].round(3).astype(str)
+        
         DistanceBing = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='BG_BG')
         Warehouse = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='Warehouse')
         FPS = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='FPS')
+       
+        
+        Warehouse['Lat_Long_r'] = (
+            Warehouse['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+        
+        FPS['Lat_Long_r'] = (
+            FPS['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+
+        
         node1 = node1[['WH_ID', 'WH_Lat', 'WH_Long','concatenate']]
         War = pd.merge(node1, Warehouse, on='WH_ID')
-        df1_w = War[War['concatenate'] != War['Lat_Long']]
+        df1_w = War[War['concatenate'] != War['Lat_Long_r']]
         Warehouse_ID = df1_w['WH_ID'].unique()
+        
+        
+        
         node2 = node2[['FPS_ID', 'FPS_Lat', 'FPS_Long','concatenate1']]
         FPS1 = pd.merge(node2, FPS, on='FPS_ID')
-        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long']]
+        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long_r']]
         FPS_ID = df1_f['FPS_ID'].unique()
+
+
         BG_BG = DistanceBing
         Distance1 = BG_BG.drop(columns=BG_BG.columns[BG_BG.columns.isin(Warehouse_ID)])
         Distance2 =Distance1.T
@@ -3496,11 +3722,15 @@ def processFile():
         DistanceBing = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='BG_BG')
         Warehouse = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='Warehouse')
         FPS = read_protected_excel('Backend//Distance_Initial_L2.xlsx', 'distf', sheet_name='FPS')
-        node1 = node1[['WH_ID', 'WH_Lat', 'WH_Long','concatenate']]
+        node1 = node1[['WH_ID', 'WH_Lat', 'WH_Long','concatenate']].copy()
+        node1['WH_ID'] = node1['WH_ID'].astype(str)
+        Warehouse['WH_ID'] = Warehouse['WH_ID'].astype(str)
         War = pd.merge(node1, Warehouse, on='WH_ID')
         df1_w = War[War['concatenate'] != War['Lat_Long']]
         Warehouse_ID = df1_w['WH_ID'].unique()
-        node2 = node2[['FPS_ID', 'FPS_Lat', 'FPS_Long','concatenate1']]
+        node2 = node2[['FPS_ID', 'FPS_Lat', 'FPS_Long','concatenate1']].copy()
+        node2['FPS_ID'] = node2['FPS_ID'].astype(str)
+        FPS['FPS_ID'] = FPS['FPS_ID'].astype(str)
         FPS1 = pd.merge(node2, FPS, on='FPS_ID')
         df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long']]
         FPS_ID = df1_f['FPS_ID'].unique()
@@ -4899,6 +5129,7 @@ def processFile_leg1():
                 allCombination51.append(Allocation51[i][j] * dist1[i][j]) 
 
         model += lpSum(allCombination3 + allCombination31 )
+        
         if stop_process==True:
             data = {}
             data['status'] = 0
@@ -4907,22 +5138,7 @@ def processFile_leg1():
             json_object = json.loads(json_data)
             return json.dumps(json_object, indent=1)
 
-        # Demand Constraints for Wheat
-
-        # for i in range(len(WH['SW_ID'])):
-        #     model += (lpSum(Allocation3[j][i] for j in range(len(FCI['WH_ID'
-        #                    ]))) >= WH['Storage_Mota'][i]) 
-
-        # for i in range(len(WH['SW_ID'])):
-        #     model += (lpSum(Allocation3[j][i] for j in range(len(FCI['WH_ID'
-        #                    ]))) <= WH['Capacity_Mota'][i])                   
-                           
-        # for i in range(len(FCI['WH_ID'])):
-        #     model += ((lpSum(Allocation3[i][j] for j in range(len(WH['SW_ID'
-        #                    ]))))  <= FCI['Inv_Mota'][i])
-        #     model += ((lpSum(Allocation3[i][j] for j in range(len(WH['SW_ID'
-        #                    ]))))  >= FCI['Inv_Mota'][i])  
-
+        
        # ================= DEMAND & CAPACITY (FCI + MILL) =================
 
         for i in range(len(WH['SW_ID'])):
@@ -5083,21 +5299,7 @@ def processFile_leg1():
                            
                            
                            
-        # for i in range(len(WH['SW_ID'])):
-        #     model += (lpSum(Allocation4[j][i] for j in range(len(FCI['WH_ID'
-        #                    ]))) >= WH['Storage_Patla'][i])
-                           
-        # for i in range(len(FCI['WH_ID'])):
-        #     model += ((lpSum(Allocation4[i][j] for j in range(len(WH['SW_ID'
-        #                    ]))))  <= FCI['Inv_Patla'][i])
-        #     model += ((lpSum(Allocation4[i][j] for j in range(len(WH['SW_ID'
-        #                    ]))))  >= FCI['Inv_Patla'][i])     
-        
-        # for i in range(len(WH['SW_ID'])):
-        #     model += (lpSum(Allocation4[j][i] for j in range(len(FCI['WH_ID'
-        #                    ]))) <= WH['Capacity_Patla'][i])
-
-        # ================= DEMAND (FCI + MILL) =================
+      
 
         for i in range(len(WH['SW_ID'])):
             model += (
@@ -5330,7 +5532,12 @@ def processFile_leg1():
             if (wh, to_dist) not in allowed_pairs:
                 model += DV_Variables51[j] == 0     
         
-        model.solve(CPLEX_CMD(options=['set mip tolerances mipgap 0.03',"set emphasis memory y"]))
+        model.solve(CPLEX_CMD(options=[
+            "set mip tolerances mipgap 0.01",
+            "set emphasis memory y",
+            "set mip strategy file 3",
+            "set workmem 2048"
+        ]))
         
         
        
@@ -5354,28 +5561,7 @@ def processFile_leg1():
             json_object = json.loads(json_data)
             return json.dumps(json_object, indent=1)
 
-        #model.solve(PULP_CBC_CMD())
-        if stop_process==True:
-            data = {}
-            data['status'] = 0
-            data['message'] = "Process Stopped"
-            json_data = json.dumps(data)
-            json_object = json.loads(json_data)
-            return json.dumps(json_object, indent=1)        
         
-        
-        Original_Cost = 100000000
-        total = Original_Cost
-
-        data = {}
-        #data['status'] = 1
-        #data['modelStatus'] = Status
-        #data['totalCost'] = float(round(model.objective.value(),1))
-        #data['original'] = float(round(total, 2))
-        #data['percentageReduction'] = float(round((total
-                #- model.objective.value()) / total, 4) * 100)
-        #data['Average_Distance'] = float(round(model.objective.value(), 2)) / Total_Demand
-        #data['Demand'] = int(FPS['Allocation_Wheat'].sum())
 
         
         if stop_process==True:
@@ -5426,8 +5612,7 @@ def processFile_leg1():
                 
         df92.to_excel('Backend//Tagging_Sheet_Pre_leg41.xlsx', sheet_name='BG_FPS')
         
-        # df1 = pd.read_excel('Backend//Tagging_Sheet_Pre_leg21.xlsx', sheet_name='BG_FPS')
-        # df2 = pd.read_excel('Backend//Tagging_Sheet_Pre_leg31.xlsx', sheet_name='BG_FPS')
+        
         df3 = pd.read_excel('Backend//Tagging_Sheet_Pre_leg41.xlsx', sheet_name='BG_FPS')
 
         # Combine all rows
@@ -5462,6 +5647,7 @@ def processFile_leg1():
         Mill= pd.read_excel(USN, sheet_name='A.2 Mill', index_col=None) 
         FCI['WH_ID'] = FCI['WH_ID'].astype(str) 
         Mill['WH_ID'] = Mill['WH_ID'].astype(str) 
+        print('Avi')
 
         if stop_process==True:
             data = {}
@@ -5470,43 +5656,14 @@ def processFile_leg1():
             json_data = json.dumps(data)
             json_object = json.loads(json_data)
             return json.dumps(json_object, indent=1)
-    # Step 1: master
-        master = pd.concat([FCI, Mill], ignore_index=True)
-        master = master.drop_duplicates(subset=['WH_ID'])
+        df31_fci = df31[df31['commodity'].isin(['NormalRice', 'StateFRKRice','CentralFRKRice'])]   # adjust as per your logic
+        df31_mill = df31[~df31['commodity'].isin(['NormalRice', 'StateFRKRice','CentralFRKRice'])]
+        df_fci = pd.merge(df31_fci, FCI, on='WH_ID', how='left')
+        df_mill = pd.merge(df31_mill, Mill, on='WH_ID', how='left')
+        df4 = pd.concat([df_fci, df_mill], ignore_index=True)
 
-# Step 2: merge
-        df4 = pd.merge(df31, master, on='WH_ID', how='left')
-
-# Step 3: merge SW
-        df44 = pd.merge(df4, WH, on='SW_ID', how='left')
-        # df44 = pd.merge(df31, FCI, on='WH_ID', how='inner')
-        #df4 = pd.merge(df31, FCI, on='WH_ID', how='inner')
-        # df44 = df44[[
-        #     'WH_ID',
-        #     'WH_Name',
-        #     'WH_District',
-        #     'WH_Lat',
-        #     'WH_Long',
-        #     'SW_ID',
-        #     'commodity',
-        #     'Values',
-        #     ]]
-        
-        # df45 = pd.merge(df31, Mill, on='WH_ID', how='inner')
-        # #df4 = pd.merge(df31, FCI, on='WH_ID', how='inner')
-        # df45 = df45[[
-        #     'WH_ID',
-        #     'WH_Name',
-        #     'WH_District',
-        #     'WH_Lat',
-        #     'WH_Long',
-        #     'SW_ID',
-        #     'commodity',
-        #     'Values',
-        #     ]]
-        # df4 = pd.concat([df44, df45],ignore_index=True)
-        # print(df4)
-        # df4 = pd.merge(df4, WH, on='SW_ID', how='inner')
+    
+        df44 = pd.merge(df4, WH, on='SW_ID', how='inner')
         df51 = df44[[
             'WH_ID',
             'WH_Name',
@@ -5575,29 +5732,54 @@ def processFile_leg1():
         data1 = pd.ExcelFile("Backend//Tagging_Sheet_Pre11_leg1.xlsx")
         df5 = pd.read_excel(data1,sheet_name="BG_FPS1")
         data1.close()
+        
+        
         input = pd.ExcelFile('Backend//Data_2.xlsx')
         node1 = pd.read_excel(input,sheet_name="A.1 Warehouse")
-        node1["concatenate"]= node1['SW_Lat'].astype(str) + ',' + node1['SW_Long'].astype(str)
+        node1["concatenate"]= node1['SW_Lat'].round(3).astype(str) + ',' + node1['SW_Long'].round(3).astype(str)
         
         node2 = pd.read_excel(input,sheet_name="A.2 FCI")
-        node2["concatenate1"]= node2['WH_Lat'].astype(str) + ',' + node2['WH_Long'].astype(str)
-        #Distance = pd.ExcelFile('Backend//Distance_Intial_L1.xlsx')
+        node2["concatenate1"]= node2['WH_Lat'].round(3).astype(str) + ',' + node2['WH_Long'].round(3).astype(str)
+        
+        
         DistanceBing = read_protected_excel('Backend//Distance_Intial_L1.xlsx', 'distf', sheet_name='BG_BG')
         Warehouse = read_protected_excel('Backend//Distance_Intial_L1.xlsx', 'distf', sheet_name='Warehouse')
         FCI = read_protected_excel('Backend//Distance_Intial_L1.xlsx', 'distf', sheet_name='FCI')
-        node1 = node1[['SW_ID', 'SW_Lat', 'SW_Long','concatenate']]
-        node1['SW_ID'] = pd.to_numeric(node1['SW_ID'], errors='coerce')
-        Warehouse['SW_ID'] = pd.to_numeric(Warehouse['SW_ID'], errors='coerce')
+        
+        Warehouse['Lat_Long_r'] = (
+            Warehouse['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+        
+        FCI['Lat_Long_r'] = (
+            FCI['Lat_Long']
+            .str.split(',', expand=True)
+            .astype(float)
+            .round(3)
+            .astype(str)
+            .agg(','.join, axis=1)
+        )
+        
+        node1 = node1[['SW_ID', 'SW_Lat', 'SW_Long','concatenate']].copy()
+        node1['SW_ID'] = node1['SW_ID'].astype(str)
+        Warehouse['SW_ID'] = Warehouse['SW_ID'].astype(str)
 
         War = pd.merge(node1, Warehouse, on='SW_ID')
-        df1_w = War[War['concatenate'] != War['Lat_Long']]
+        df1_w = War[War['concatenate'] != War['Lat_Long_r']]
         Warehouse_ID = df1_w['SW_ID'].unique()
+        
         node2 = node2[['WH_ID', 'WH_Lat', 'WH_Long','concatenate1']]
         node2['WH_ID'] = node2['WH_ID'].astype(str)
         FCI['WH_ID'] = FCI['WH_ID'].astype(str)
         FPS1 = pd.merge(node2, FCI, on='WH_ID')
-        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long']]
+        df1_f = FPS1[FPS1['concatenate1'] != FPS1['Lat_Long_r']]
         FPS_ID = df1_f['WH_ID'].unique()
+        
+        
         BG_BG = DistanceBing
         Distance1 = BG_BG.drop(columns=BG_BG.columns[BG_BG.columns.isin(Warehouse_ID)])
         #print(Distance1)
@@ -5644,138 +5826,7 @@ def processFile_leg1():
         df5.to_excel('Backend//Result_Sheet12.xlsx',
                          sheet_name='Warehouse_FPS')
 
-        # Result_Sheet1=pd.ExcelFile("Backend//Result_Sheet12.xlsx")
-        # df6= pd.read_excel(Result_Sheet1,sheet_name="Warehouse_FPS")
-        # df7=df6.loc[df6['Distance'] == "shallu"]
-        # source3 = df7['From_ID']  # FCI is the source and FPS is the destination
-        # destination3 = df7['To_ID']
-        # BingMapsKey = "AhDBAf8zi_2llbdYS0n4GKYX6Z5L-hl89QX1V0VWTfXhPVH5jk9tg2wehciKelun"  # Bing Map Key
-        # df7["Warehouse_lat_long"]= df7['From_Lat'].astype(str) + ',' + df7['From_Long'].astype(str)
-        # df7["FPS_lat_long"]= df7['To_Lat'].astype(str) + ',' + df7['To_Long'].astype(str)
-
-        # #df8=df7["From_ID","To_ID","Warehouse_lat_long","FPS_lat_long"]
-        # df8 = df7[['From_ID', 'To_ID', 'Warehouse_lat_long', 'FPS_lat_long']]
-        # source3 = df8['From_ID']
-        # destination3 = df8['To_ID']
-        # dist3 = [0 for _ in range(len(destination3))]  # Transport matrix for FCI_FPS
-        # BingMapsKey = "AhDBAf8zi_2llbdYS0n4GKYX6Z5L-hl89QX1V0VWTfXhPVH5jk9tg2wehciKelun"  # Bing Map Key
-
-        # dist3 = []  # Initialize an empty list for distances
-
-        # if stop_process==True:
-        #     data = {}
-        #     data['status'] = 0
-        #     data['message'] = "Process Stopped"
-        #     json_data = json.dumps(data)
-        #     json_object = json.loads(json_data)
-        #     return json.dumps(json_object, indent=1)
-
-        # dist3 = []  # Initialize an empty list for distances
-
-        # for index, row in df8.iterrows():
-        #     origin = row["Warehouse_lat_long"]
-        #     dest = row["FPS_lat_long"]
-        #     max_retries = 3
-        #     retries = 0
-        #     while retries < max_retries:
-        #         try:
-        #             response = requests.get(
-        #                 "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=" + origin + "&destinations=" + dest +
-        #                 "&travelMode=driving&key=" + BingMapsKey)
-        #             resp = response.json()
-
-        #             # Append a new element to dist3 for the current index
-        #             dist3.append(resp['resourceSets'][0]['resources'][0]['results'][0]['travelDistance'])
-
-        #             # Display the output for each iteration
-        #             print(f"Origin: {origin}, Destination: {dest}, Distance: {dist3[-1]}")
-        #             break  # Successful response, exit the retry loop
-        #         except (requests.ConnectionError, requests.Timeout):
-        #             retries += 1
-        #             print(f"Attempt {retries} failed. Retrying...")
-        #             time.sleep(1)  # Wait for 1 second before retrying
-
-        # print("Final distances:", dist3)
-
-        # if stop_process==True:
-        #     data = {}
-        #     data['status'] = 0
-        #     data['message'] = "Process Stopped"
-        #     json_data = json.dumps(data)
-        #     json_object = json.loads(json_data)
-        #     return json.dumps(json_object, indent=1)
-
-        # df7["Distance"]=dist3
-        # print("Final distances:", dist3)
-
-        # if stop_process==True:
-        #     data = {}
-        #     data['status'] = 0
-        #     data['message'] = "Process Stopped"
-        #     json_data = json.dumps(data)
-        #     json_object = json.loads(json_data)
-        #     return json.dumps(json_object, indent=1)
-
-        # df7["Distance"]=dist3
-        # df7.drop(['Warehouse_lat_long', 'FPS_lat_long'], axis=1)
-        # df9=df6.loc[df6['Distance'] != "shallu"]
-        # df9 = df9.loc[:, [
-        #         'Scenario',
-        #         'From',
-        #         'From_State',
-        #         'From_District',
-        #         'From_ID',
-        #         'From_Name',
-        #         'From_Lat',
-        #         'From_Long',
-        #         'To',
-        #         'To_ID',
-        #         'To_Name',
-        #         'To_State',
-        #         'To_District',
-        #         'To_Lat',
-        #         'To_Long',
-        #         'commodity',
-        #         'quantity',
-        #          "Distance",]]
-        # df7 = df7.loc[:, [
-        #         'Scenario',
-        #         'From',
-        #         'From_State',
-        #         'From_District',
-        #         'From_ID',
-        #         'From_Name',
-        #         'From_Lat',
-        #         'From_Long',
-        #         'To',
-        #         'To_ID',
-        #         'To_Name',
-        #         'To_State',
-        #         'To_District',
-        #         'To_Lat',
-        #         'To_Long',
-        #         'commodity',
-        #         'quantity',
-        #        "Distance"]]
         
-        # print(df9.head())  # Print the first few rows
-        # #df10 = df9.append([df7], ignore_index=True)
-        # df10 = pd.concat([df9, df7], ignore_index=True)
-        # #df10 = df9.append([df7],ignore_index=True)
-        # result = (df10['quantity'] * df10['Distance']).sum()
-        # print(result)
-
-        # if stop_process==True:
-        #     data = {}
-        #     data['status'] = 0
-        #     data['message'] = "Process Stopped"
-        #     json_data = json.dumps(data)
-        #     json_object = json.loads(json_data)
-        #     return json.dumps(json_object, indent=1)
-
-        # df10.to_excel('Backend//Result_Sheet_leg1.xlsx',
-        #              sheet_name='Warehouse_FPS')
-
 # ----------------------------------------------------------------------------------------------------------------------------------------------
         Result_Sheet1 = pd.ExcelFile("Backend//Result_Sheet12.xlsx")
         df6 = pd.read_excel(Result_Sheet1, sheet_name="Warehouse_FPS")

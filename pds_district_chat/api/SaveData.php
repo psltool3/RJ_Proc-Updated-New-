@@ -24,6 +24,9 @@ foreach ($_POST as $key => $value) {
 	if (substr($key, -11) === '_iddistance' or substr($key, -9) === '_idreason' or $value===""){
 		continue;
 	}
+	if (substr($key, -5) === '_bool') {
+		$key = substr($key, 0, -5);
+	}
 	$parts = explode("_", $key,3);
 	$fromid = $parts[0];
 	$toid = $parts[1];
@@ -31,11 +34,12 @@ foreach ($_POST as $key => $value) {
 	$toid = str_replace('_', '.', $toid);
 	$commodity = str_replace('_', '.', $commodity);
 	if($value=="yes"){
-		$query = "UPDATE " . $tablename . " SET approve_district='yes' WHERE from_id='$fromid' AND to_id='$toid' AND commodity='$commodity'";
+		$query = "UPDATE " . $tablename . " SET approve_district='yes', reason_district='' WHERE from_id='$fromid' AND to_id='$toid' AND commodity='$commodity'";
 		writeLog("district User ->" ." Save Data | approve district change yes ->". $_SESSION['district_user'] . "| " . $fromid . " - " . $toid . " - " . $commodity);
 	}
 	else if($value=="no"){
-		$query = "UPDATE " . $tablename . " SET approve_district='', new_id_district='' WHERE from_id='$fromid' AND to_id='$toid' AND commodity='$toid'";
+		$reason = isset($_POST[$key."_idreason"]) ? $_POST[$key."_idreason"] : "";
+		$query = "UPDATE " . $tablename . " SET approve_district='no', reason_district='$reason' WHERE from_id='$fromid' AND to_id='$toid' AND commodity='$commodity'";
 		$filteredPost = $_POST;
 		unset($filteredPost['username'], $filteredPost['password']);
 		writeLog("district User ->" ." Save Data | approve district change no ->". $_SESSION['district_user'] . "| " . $fromid . " - " . $toid . " - " . $commodity);
@@ -47,7 +51,7 @@ foreach ($_POST as $key => $value) {
 		$name = $row_name['name'];
 		$reason = $_POST[$key."_idreason"];
 		$distance = $_POST[$key."_iddistance"];
-		$query = "UPDATE " . $tablename . " SET new_id_district='$value', new_name_district='$name', approve_district='yes', new_distance_district='$distance', reason_district='$reason' WHERE from_id='$fromid' AND to_id='$toid'";
+		$query = "UPDATE " . $tablename . " SET new_id_district='$value', new_name_district='$name', approve_district='yes', new_distance_district='$distance', reason_district='$reason' WHERE from_id='$fromid' AND to_id='$toid' AND commodity='$commodity'";
 		
 		writeLog("User ->" ." Save Data | district user change id ->". $_SESSION['district_user'] . "| " . $fromid . " - " . $toid .  " - " . $commodity . "| " . $value);
 		

@@ -410,7 +410,7 @@ require('Header.php');
 			<div class="panel panel-default">
 				<div class="panel-heading" style="text-align: center;">
 					<h1 style="font-weight: bold; color: #335566;">Chhattisgarh PDS Route Optimisation</h1>
-					<h1 style="font-weight: bold; color: #ff7066;">Kindly Optimised the Leg1-Mill to Warehouse</h1>
+					<h1 style="font-weight: bold; color: #ff7066;">Kindly Optimised the Leg2-Mill to Warehouse</h1>
 
 				</div>
 			</div>
@@ -485,7 +485,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#27AE60; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#28A745; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_supplymota"></div>
 										<div style="font-size:14px">Total Normal Rice (Qtl) Inventory</div>
 									</div>
@@ -493,7 +493,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#F39C12; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#E74C3C; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_supplypatla"></div>
 										<div style="font-size:14px">Total State FRK Rice (Qtl) Inventory</div>
 									</div>
@@ -501,7 +501,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#E74C3C; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#FF5722; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_supplysaran"></div>
 										<div style="font-size:14px">Total Central FRK Rice(Qtl) Inventory</div>
 									</div>
@@ -513,7 +513,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#8E44AD; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#F39C12; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_warehouse"></div>
 										<div style="font-size:14px">Total Warehouses</div>
 									</div>
@@ -521,7 +521,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#2ECC71; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#8E44AD; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_demandmota"></div>
 										<div style="font-size:14px">Total Normal Rice(Qtl) Demand</div>
 									</div>
@@ -529,7 +529,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#D35400; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#1ABC9C; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_demandpatla"></div>
 										<div style="font-size:14px">Total State FRK Rice(Qtl) Demand</div>
 									</div>
@@ -537,7 +537,7 @@ require('Header.php');
 								
 								<div class="col-md-3 mb-3">
 									<div class="card h-100"
-										style="background-color:#9B59B6; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#FF6B81; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_demandsaran"></div>
 										<div style="font-size:14px">Total Central FRK Rice(Qtl) Demand</div>
 									</div>
@@ -546,7 +546,7 @@ require('Header.php');
 							
 							<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#8E44AD; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#34495E; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_storagemota1"></div>
 										<div style="font-size:14px">Total Storage Normal Rice</div>
 									</div>
@@ -554,7 +554,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#2ECC71; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#F1C40F; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_storagepatla"></div>
 										<div style="font-size:14px">Total Storage State FRK Rice</div>
 									</div>
@@ -562,7 +562,7 @@ require('Header.php');
 								
 								<div class="col-md-4 mb-4">
 									<div class="card h-100"
-										style="background-color:#D35400; color:white; padding:12px; font-weight: bold;">
+										style="background-color:#00BCD4; color:white; padding:12px; font-weight: bold;">
 										<div style="font-size:20px" id="total_storagesaran"></div>
 										<div style="font-size:14px">Total Storage Central FRK Rice</div>
 									</div>

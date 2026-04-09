@@ -4,7 +4,11 @@ require('util/SessionCheck.php');
 require('Header.php');
 
 $id = $_POST['id'];
-$tablename = "optimiseddata_".$id;
+if (isset($_POST['step']) && $_POST['step'] == 'leg1') {
+    $tablename = "optimiseddata_leg1_".$id;
+} else {
+    $tablename = "optimiseddata_".$id;
+}
 
 ?>
 <style>
