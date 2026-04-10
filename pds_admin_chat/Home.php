@@ -726,6 +726,7 @@ require('Header.php');
 <!-- END TEMPLATE -->
 
 <script>
+	var isJobRunning = false;
 
 	function checkServerStatus() {
 		// Make an AJAX request to your Python server
@@ -953,7 +954,9 @@ require('Header.php');
 									document.getElementById("total_min_saran").innerHTML = formatNumberWithCommasWithoutDecimal(data["Incoming_Min_Saran"]);
 									
 									document.getElementById("total_district").innerHTML = formatNumberWithCommasWithoutDecimal(data["District_Count"]);
-									document.getElementById("processingPopup").style.display = "none";
+									if (!isJobRunning) {
+										document.getElementById("processingPopup").style.display = "none";
+									}
 									
 									if(firstStart==0){
 										document.getElementById("statewiseCheckbox").checked = true;
@@ -967,14 +970,18 @@ require('Header.php');
 								.catch(error => {
 									console.error('Error:', error);
 									alert("Error in Fetching Data");
-									document.getElementById("processingPopup").style.display = "none";
+									if (!isJobRunning) {
+										document.getElementById("processingPopup").style.display = "none";
+									}
 								});
 
 
 						})
 						.catch(error => {
 							console.error('Error:', error);
-							document.getElementById("processingPopup").style.display = "none";
+							if (!isJobRunning) {
+								document.getElementById("processingPopup").style.display = "none";
+							}
 						});
 				}
 				catch (error) {
@@ -1043,139 +1050,180 @@ require('Header.php');
 		}
 	}
 	
-	let controller;
-	
+	function handleOptimizationResult(data) {
+		isJobRunning = false;
+		document.getElementById("optimisedtable").innerHTML = "";
+		document.getElementById("optimisedtable").style.display = "";
+		document.getElementById("processingPopup").style.display = "none";
+		document.getElementById("cancel-request").style.display = "none";
+		var table = document.getElementById("optimisedtable");
+		
+		if ("status" in data && data["status"] == 0) {
+			alert(data["message"]);
+			resetUI();
+			$("#optimisedtable").empty();
+			return;
+		}
+		
+		var thead = document.createElement("thead");
+		var headerRow = document.createElement("tr");
+		var headers = ["Scenario", "PC_Used", "Mill_Used", "Total_Allocation", "Total_QKM", "Average Distance"];
+		headers.forEach(function(headerText) {
+			var th = document.createElement("th");
+			th.textContent = headerText;
+			headerRow.appendChild(th);
+		});
+		thead.appendChild(headerRow);
+		table.appendChild(thead);
+
+		var newRow1 = table.insertRow();
+		var cell1_1 = newRow1.insertCell(0);
+		var cell1_2 = newRow1.insertCell(1);
+		var cell1_3 = newRow1.insertCell(2);
+		var cell1_4 = newRow1.insertCell(3);
+		var cell1_5 = newRow1.insertCell(4);
+		var cell1_6 = newRow1.insertCell(5);
+		
+		cell1_1.innerHTML = data["Scenario"];
+		cell1_2.innerHTML = data["WH_Used"];
+		cell1_3.innerHTML = formatNumberWithCommas(data["FPS_Used"]);
+		cell1_4.innerHTML = formatNumberWithCommas(data["Demand"]);
+		cell1_5.innerHTML = formatNumberWithCommas(data["Total_QKM"]);
+		cell1_6.innerHTML = formatNumberWithCommas(data["Average_Distance"]);
+		
+		var newRow2 = table.insertRow();
+		var cell2_1 = newRow2.insertCell(0);
+		var cell2_2 = newRow2.insertCell(1);
+		var cell2_3 = newRow2.insertCell(2);
+		var cell2_4 = newRow2.insertCell(3);
+		var cell2_5 = newRow2.insertCell(4);
+		var cell2_6 = newRow2.insertCell(5);
+
+		cell2_1.innerHTML = data["Scenario_Baseline"];
+		cell2_2.innerHTML = data["WH_Used_Baseline"];
+		cell2_3.innerHTML = (data["FPS_Used_Baseline"]);
+		cell2_4.innerHTML = (data["Demand_Baseline"]);
+		cell2_5.innerHTML = (data["Total_QKM_Baseline"]);
+		cell2_6.innerHTML = (data["Average_Distance_Baseline"]);
+		
+		table.style.width = "100%";
+		table.style.padding = "20px";
+		table.style.marginBottom = "50px";
+		table.style.fontSize = "20px"; 
+		table.style.marginLeft = "20px";
+		table.style.color = "black";
+		table.style.textAlign = "center";
+		
+		resetUIState();
+	}
+
+	function resetUI() {
+		isJobRunning = false;
+		document.getElementById("processingPopup").style.display = "none";
+		document.getElementById("cancel-request").style.display = "none";
+		resetUIState();
+	}
+
+	function resetUIState() {
+		var toggleButton = document.querySelector('.toggle');
+		toggleButton.classList.remove('toggle--on');
+		toggleButton.classList.add('toggle--off');
+		toggleButton.setAttribute('data-content', 'Off');
+	}
+
+	function pollJobStatus(jobId) {
+		fetch(pythonUrl + 'job_status/' + jobId)
+			.then(response => response.json())
+			.then(data => {
+				if (data.status == 1) {
+					var job = data.job;
+					if (job.status === 'completed') {
+						fetch(pythonUrl + 'job_result/' + jobId)
+							.then(response => response.json())
+							.then(resultData => {
+								handleOptimizationResult(resultData);
+							});
+					} else if (job.status === 'failed') {
+						alert("Optimization failed: " + (job.error || job.message));
+						resetUI();
+					} else {
+						// still running or queued
+						setTimeout(() => pollJobStatus(jobId), 3000);
+					}
+				}
+			})
+			.catch(err => {
+				console.error("Polling error:", err);
+				setTimeout(() => pollJobStatus(jobId), 5000);
+			});
+	}
+
 	function generateoptimizedplan() {
 		const formData = new FormData();
 		
 		today_date = document.getElementById("today_date").value;
 		var parts = today_date.split("-");
 		var year = parts[0];
-		var monthNumber = parts[1];
-		var day = parts[2];   
+		var monthNumber = parseInt(parts[1]);
+		var formattedDate = parseInt(parts[2]);
+		
+		var  day = formattedDate + "-" + monthNumber + "-" + year;
 		
 		var monthNames = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'];
-
-		// Convert "02" → 1 (array index)
 		var month = monthNames[parseInt(monthNumber) - 1];
 		
 		formData.append('month', month);
 		formData.append('year', year);
 		formData.append('day', day);
 		formData.append('type', document.getElementById("type").value);
-		
+		formData.append('async', '1');
+		formData.append('user', document.getElementById("username").value);
 		
 		controller = new AbortController();
 		const signal = controller.signal;
 		
+		isJobRunning = true;
 		document.getElementById("processingPopup").style.display = "flex";
 		document.getElementById("cancel-request").style.display = "flex";
-		fetchPromise = fetch(pythonUrl + 'processFile', {
+		fetch(pythonUrl + 'processFile', {
 			method: 'POST',
 			body: formData,
-			signal: signal,
-			timeout: 14400000
+			signal: signal
 		})
-			.then(response => response.json())
-			.then(data => {
-				document.getElementById("optimisedtable").innerHTML = "";
-				document.getElementById("optimisedtable").style.display = "";
-				document.getElementById("processingPopup").style.display = "none";
-				document.getElementById("cancel-request").style.display = "none";
-				var table = document.getElementById("optimisedtable");
-				
-				if ("status" in data) {
-					if(data["status"]==0){
-						alert(data["message"]);
-						var toggleButton = document.querySelector('.toggle');
-						toggleButton.classList.remove('toggle--on');
-						toggleButton.classList.add('toggle--off');
-						toggleButton.setAttribute('data-content', 'Off');									
-						document.getElementById("processingPopup").style.display = "none";
-						document.getElementById("cancel-request").style.display = "none";
-						$("#optimisedtable").empty();
-						return;
-					}
-				}
-				
-				var thead = document.createElement("thead");
-				var headerRow = document.createElement("tr");
-				var headers = ["Scenario", "PC_Used", "Mill_Used", "Total_Allocation", "Total_QKM", "Average Distance"];
-				headers.forEach(function(headerText) {
-					var th = document.createElement("th");
-					th.textContent = headerText;
-					headerRow.appendChild(th);
-				});
-				thead.appendChild(headerRow);
-				table.appendChild(thead);
-
-				var newRow = table.insertRow();
-
-				var cell1 = newRow.insertCell(0);
-				var cell2 = newRow.insertCell(1);
-				var cell3 = newRow.insertCell(2);
-				var cell4 = newRow.insertCell(3);
-				var cell5 = newRow.insertCell(4);
-				var cell6 = newRow.insertCell(5);
-				
-				cell1.innerHTML = data["Scenario"];
-				cell2.innerHTML = data["WH_Used"];
-				cell3.innerHTML = formatNumberWithCommas(data["FPS_Used"]);
-				cell4.innerHTML = formatNumberWithCommas(data["Demand"]);
-				cell5.innerHTML = formatNumberWithCommas(data["Total_QKM"]);
-				cell6.innerHTML = formatNumberWithCommas(data["Average_Distance"]);
-				
-				var newRow = table.insertRow();
-
-				var cell1 = newRow.insertCell(0);
-				var cell2 = newRow.insertCell(1);
-				var cell3 = newRow.insertCell(2);
-				var cell4 = newRow.insertCell(3);
-				var cell5 = newRow.insertCell(4);
-				var cell6 = newRow.insertCell(5);
-
-				cell1.innerHTML = data["Scenario_Baseline"];
-				cell2.innerHTML = data["WH_Used_Baseline"];
-				cell3.innerHTML = (data["FPS_Used_Baseline"]);
-				cell4.innerHTML = (data["Demand_Baseline"]);
-				cell5.innerHTML = (data["Total_QKM_Baseline"]);
-				cell6.innerHTML = (data["Average_Distance_Baseline"]);
-				
-			table.style.width = "100%";
-			table.style.padding = "20px";
-			table.style.marginBottom = "50px";
-			table.style.fontSize = "20px"; 
-			table.style.marginLeft = "20px"; // Add margin-left
-			table.style.color = "black"; // Add margin-left
-			table.style.textAlign = "center";
-
-			var tableHeaders = table.getElementsByTagName('th');
-			for (var i = 0; i < tableHeaders.length; i++) {
-				tableHeaders[i].style.fontSize = "20px"; // Increase font size for headers
+		.then(response => response.json())
+		.then(data => {
+			if (data.status == 1 && data.job_id) {
+				pollJobStatus(data.job_id);
+			} else {
+				alert(data.message || "Failed to start optimization");
+				resetUI();
 			}
-			//toggleImage(); // Call the toggleImage function after displaying the table
-			var toggleButton = document.querySelector('.toggle');
-			toggleButton.classList.remove('toggle--on');
-			toggleButton.classList.add('toggle--off');
-			toggleButton.setAttribute('data-content', 'Off');
-
-			//toggleTableAndDownloadButton(); // Call the function to show/hide download button
 		})
 		.catch(error => {
-			alert("Error in Processing");
-			var toggleButton = document.querySelector('.toggle');
-			toggleButton.classList.remove('toggle--on');
-			toggleButton.classList.add('toggle--off');
-			toggleButton.setAttribute('data-content', 'Off');
-
 			console.error('Error:', error);
-		})
-		.finally(() => {
-			document.getElementById("processingPopup").style.display = "none";
-			document.getElementById("cancel-request").style.display = "none";
+			alert("Error in starting optimization");
+			resetUI();
 		});
 	}
-	
+
+	function checkActiveJob() {
+		var user = document.getElementById("username").value;
+		fetch(pythonUrl + 'active_job?client_id=' + encodeURIComponent(user) + '&endpoint=/processFile')
+			.then(response => response.json())
+			.then(data => {
+				if (data.status == 1 && data.job) {
+					isJobRunning = true;
+					document.getElementById("processingPopup").style.display = "flex";
+					document.getElementById("cancel-request").style.display = "flex";
+					var toggleButton = document.querySelector('.toggle');
+					toggleButton.classList.remove('toggle--off');
+					toggleButton.classList.add('toggle--on');
+					toggleButton.setAttribute('data-content', 'On');
+					pollJobStatus(data.job.job_id);
+				}
+			});
+	}
+
 	function cancelRequest() {
 		if (controller) {
 			controller.abort(); // Abort the fetch request using the AbortController
@@ -1454,7 +1502,7 @@ function handleStateCheckboxChange() {
 							{
 								label: 'Saran Storage',
 								backgroundColor: '#04AFEC',
-							
+								data: demands_total
 							},
 							{
 								label: 'Procurement Saran',
@@ -1468,7 +1516,9 @@ function handleStateCheckboxChange() {
 					// Update the chart with new data
 					myChart.data = newData;
 					myChart.update();
-					document.getElementById("processingPopup").style.display = "none";
+					if (!isJobRunning) {
+						document.getElementById("processingPopup").style.display = "none";
+					}
 					if(firstStart==0){
 						document.getElementById("districtwiseCheckbox").checked = true;
 						handleDistrictCheckboxChange();
@@ -1484,7 +1534,9 @@ function handleStateCheckboxChange() {
 					document.getElementById("result").innerHTML = "Optimization cannot be provided.";
 					document.getElementById("result").style.color = "red";
 					document.getElementById("districtcheckbox").style.display = "none";
-					document.getElementById("processingPopup").style.display = "none";
+					if (!isJobRunning) {
+						document.getElementById("processingPopup").style.display = "none";
+					}
 					document.getElementById("generateoptinizedplanbutton").style.display = "none";
 				}
 
@@ -1492,7 +1544,9 @@ function handleStateCheckboxChange() {
 			.catch(error => {
 				console.error('Error:', error);
 				alert("Error in Fetching Data");
-				document.getElementById("processingPopup").style.display = "none";
+				if (!isJobRunning) {
+					document.getElementById("processingPopup").style.display = "none";
+				}
 			});
 
 	} else {
@@ -1507,7 +1561,9 @@ function handleStateCheckboxChange() {
 		
 		document.getElementById("districtwiseCheckbox").checked = false;
 		document.getElementById("districtcheckbox").style.display = "none";
-		document.getElementById("processingPopup").style.display = "none";
+		if (!isJobRunning) {
+			document.getElementById("processingPopup").style.display = "none";
+		}
 		document.getElementById("generateoptinizedplanbutton").style.display = "none";
 	}
 }
@@ -1583,6 +1639,7 @@ function showCheckboxes() {
 }
 var firstStart = 0;
 fetchFromDb();
+checkActiveJob();
 
 </script>
 </body>

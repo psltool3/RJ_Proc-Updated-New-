@@ -278,7 +278,8 @@ if($currentTimestamp >= $targetTimestamp) {
 												<th style="font-size:16px">Distance(Km)</th>
 												<th style="font-size:16px">Implemented / Non Implemented</th>
 												<th style="font-size:16px">District Reason for not Implementing</th>
-												<th style="font-size:16px">Admin Approved</th>										
+												<th style="font-size:16px">Admin Approved</th>
+												<th style="font-size:16px">Reset</th>
                                             </tr>
                                         </thead>
 										<tbody id="table_body">
@@ -462,6 +463,27 @@ if($currentTimestamp >= $targetTimestamp) {
 			for (let i = 0; i < uniqueid_bool_array.length; i++) {
 				setSelectedValue(uniqueid_bool_array[i],'yes');
 				enableDisable(uniqueid_bool_array[i].substring(0, uniqueid_bool_array[i].indexOf('_bool')));
+			}
+		}
+
+		function resetDistrictApproval(uniqueid) {
+			if (confirm("Are you sure you want to reset this selection? This will clear your Implemented/Non-Implemented selection and reason.")) {
+				$.ajax({
+					type: "POST",
+					url: "api/ResetDistrictApprovalLeg1.php",
+					data: { uniqueid: uniqueid },
+					success: function(response) {
+						var res = JSON.parse(response);
+						if (res.status === 'success') {
+							fetchDataFromServerId();
+						} else {
+							alert("Error: " + res.message);
+						}
+					},
+					error: function() {
+						alert("Failed to reset selection.");
+					}
+				});
 			}
 		}
 		document.getElementById('downloadCSV').addEventListener('click', async function() {
@@ -719,7 +741,14 @@ if($currentTimestamp >= $targetTimestamp) {
 										var district_reason = "<td><input type='text' class='form-control' maxlength='50' onchange='handleReasonChange(\"" + uniqueid_idreason + "\")' id='" + uniqueid_idreason + "' name='" + uniqueid_idreason + "' disabled /></td>";
 									}
 									
-									$('#table_body').append(subpart1 + warehouse_id_part + district_reason + admin_approve + "</tr>");
+									var reset_button = "";
+									if (approve_district !== "") {
+										reset_button = "<td><button class='btn btn-danger' onclick='resetDistrictApproval(\"" + uniqueid + "\")'>Reset</button></td>";
+									} else {
+										reset_button = "<td></td>";
+									}
+									
+									$('#table_body').append(subpart1 + warehouse_id_part + district_reason + admin_approve + reset_button + "</tr>");
 								}
 							}
 							//fetchCardDataFromServer();							

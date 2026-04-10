@@ -138,7 +138,7 @@ require('Header.php');
 									<button id="downloadCSV" class="btn btn-warning" style="margin-bottom: 10px;" type="button">Download CSV</button>
 									<button id="downloadXLSX" class="btn btn-success" style="margin-bottom: 10px;" type="button">Download XLSX</button>
 								    <button id="downloadPDF" class="btn btn-danger" style="margin-bottom: 10px;" type="button">Download PDF</button>
-									<!--<a href="OptimisedDataLeg2.php"><button class="btn btn-info" style="margin-bottom: 10px;" type="button">Previous Data</button></a>-->
+									<a href="OptimisedDataAll.php"><button class="btn btn-info" style="margin-bottom: 10px;" type="button">Previous Data</button></a>
 								</div>
                             <!-- END SIMPLE DATATABLE -->
 								<div class="table-container">

@@ -276,6 +276,7 @@ if($currentTimestamp >= $targetTimestamp) {
 												<th style="font-size:16px">Implemented / Non Implemented</th>
 												<th style="font-size:16px">District Reason for not Implementing</th>
 												<th style="font-size:16px">Approve/Not Approve</th>
+												<th style="font-size:16px">Reset</th>
                                             </tr>
                                         </thead>
 										<tbody id="table_body">
@@ -464,6 +465,27 @@ if($currentTimestamp >= $targetTimestamp) {
 			for (let i = 0; i < uniqueid_bool_array.length; i++) {
 				setSelectedValue(uniqueid_bool_array[i],'yes');
 				enableDisable(uniqueid_bool_array[i].substring(0, uniqueid_bool_array[i].indexOf('_bool')));
+			}
+		}
+
+		function resetApproval(uniqueid) {
+			if (confirm("Are you sure you want to reset this approval? This will clear all manual selections for this row.")) {
+				$.ajax({
+					type: "POST",
+					url: "api/ResetApprovalLeg1.php",
+					data: { uniqueid: uniqueid },
+					success: function(response) {
+						var res = JSON.parse(response);
+						if (res.status === 'success') {
+							fetchDataFromServerId();
+						} else {
+							alert("Error: " + res.message);
+						}
+					},
+					error: function() {
+						alert("Failed to reset approval.");
+					}
+				});
 			}
 		}
 		document.getElementById('downloadCSV').addEventListener('click', async function() {
@@ -682,11 +704,18 @@ if($currentTimestamp >= $targetTimestamp) {
 								}
 
 								if(approve_district==""){
-									subpart1 = subpart1 + approve_district_part + "<td></td>" + approve_admin_part + "</tr>";
+									subpart1 = subpart1 + approve_district_part + "<td></td>" + approve_admin_part;
 								}
 								else{
-									subpart1 = subpart1 + approve_district_part + "<td>" + reason_district + "</td>" + approve_admin_part + "</tr>";
+									subpart1 = subpart1 + approve_district_part + "<td>" + reason_district + "</td>" + approve_admin_part;
 								}
+
+								if (approve_admin !== "") {
+									subpart1 = subpart1 + "<td><button class='btn btn-danger' onclick='resetApproval(\"" + uniqueid + "\")'>Reset</button></td></tr>";
+								} else {
+									subpart1 = subpart1 + "<td></td></tr>";
+								}
+								
 								$('#table_body').append(subpart1);
 							}
 							//fetchCardDataFromServer();							

@@ -128,11 +128,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
 				<li>
 					<a style="background-color:#FFC167"><center><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Final Rollout Plan</span></center></a>
 				</li>
-				<li <?php echo ($current_page === 'RolloutPlanAll.php') ? 'class="active"' : ''; ?>>
-					<a href="RolloutPlanAll.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Final Rollout Plan</span></a>
-				</li>
 				<li <?php echo ($current_page === 'DistrictPerformance.php') ? 'class="active"' : ''; ?>>
-					<a href="DistrictPerformance.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">District Analysis</span></a>
+					<a href="DistrictPerformance.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">District Analysis PC to Mill</span></a>
+				</li>
+				<li <?php echo ($current_page === 'DistrictPerformance1.php') ? 'class="active"' : ''; ?>>
+					<a href="DistrictPerformance1.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">District Analysis Mill to WH</span></a>
 				</li>
 				<li <?php echo ($current_page === 'Performa.php') ? 'class="active"' : ''; ?>>
 					<a href="Performa.php" style="padding-left:0px"><span class="xn-text" style="font-family:sans-serif;font-weight:italic;font-size:16px;">Performa Leg2</span></a>

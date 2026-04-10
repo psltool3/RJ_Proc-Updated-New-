@@ -6,10 +6,8 @@ import numpy as np
 import json
 import pickle
 import os.path
-from os import path
 import shutil
 import subprocess
-import pymongo
 import uuid
 import pandas as pd
 from pulp import *
@@ -26,8 +24,11 @@ from pulp import LpStatus, LpStatusInfeasible, LpStatusUnbounded, LpStatusNotSol
 import msoffcrypto # Install this in requirement using 'pip install msoffcrypto-tool' & 'pip install xlrd'
 from io import BytesIO
 from cryptography.fernet import Fernet	
-import os
 from datetime import datetime
+import multiprocessing
+import sqlite3
+import traceback
+import time
 
 auth_token = None
 token_timestamp = 0
@@ -73,6 +74,232 @@ def allowed_file(filename):
 @app.route('/')
 def hello():
     return 'Hi, PDS!'
+
+# CHANGE: simple job store in SQLite so long-running
+# requests can run in background and be resumed/polled.
+JOB_DB_PATH = os.path.join(os.path.dirname(__file__), "jobs.db")
+# CHANGE: unique id for this Python process; lets us detect
+# jobs that were started before a server restart.
+SERVER_INSTANCE_ID = str(uuid.uuid4())
+
+def _job_db_connect():
+    con = sqlite3.connect(JOB_DB_PATH, check_same_thread=False)
+    con.row_factory = sqlite3.Row
+    return con
+
+def _job_db_init():
+    con = _job_db_connect()
+    try:
+        con.execute(
+            """
+            CREATE TABLE IF NOT EXISTS jobs (
+                job_id TEXT PRIMARY KEY,
+                client_id TEXT,
+                endpoint TEXT,
+                status TEXT,
+                message TEXT,
+                created_at TEXT,
+                updated_at TEXT,
+                result_json TEXT,
+                error TEXT
+            )
+            """
+        )
+        # CHANGE: lightweight migration for older DBs created
+        # before we added server_instance_id.
+        cols = [r["name"] for r in con.execute("PRAGMA table_info(jobs)").fetchall()]
+        if "server_instance_id" not in cols:
+            con.execute("ALTER TABLE jobs ADD COLUMN server_instance_id TEXT")
+        con.execute("CREATE INDEX IF NOT EXISTS idx_jobs_client_status ON jobs(client_id, status)")
+        con.execute("CREATE INDEX IF NOT EXISTS idx_jobs_instance_status ON jobs(server_instance_id, status)")
+        con.commit()
+    finally:
+        con.close()
+
+def _job_prune_old(days: int = 30):
+    """
+    CHANGE: keep jobs.db from growing forever by removing
+    completed/failed jobs older than N days (default 30).
+    """
+    con = _job_db_connect()
+    try:
+        # SQLite doesn't have DATEADD; we store timestamps as ISO strings,
+        # so compare lexicographically against a computed cutoff.
+        from datetime import timedelta, timezone  # local import to avoid touching global imports
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        con.execute(
+            "DELETE FROM jobs WHERE status IN ('completed','failed') AND updated_at < ?",
+            (cutoff,),
+        )
+        con.commit()
+    finally:
+        con.close()
+
+def _job_reconcile_after_restart():
+    """
+    CHANGE: on server restart, mark any old 'queued'/'running'
+    jobs from previous instances as failed, so the UI doesn't
+    poll forever for work that can never finish.
+    """
+    con = _job_db_connect()
+    try:
+        ts = _job_now_iso()
+        con.execute(
+            """
+            UPDATE jobs
+            SET status='failed',
+                message='server restarted',
+                updated_at=?,
+                error=COALESCE(error,'') || CASE WHEN error IS NULL OR error='' THEN '' ELSE '\n' END || 'Server restarted; background worker no longer running.'
+            WHERE status IN ('queued','running')
+              AND (server_instance_id IS NULL OR server_instance_id != ?)
+            """,
+            (ts, SERVER_INSTANCE_ID),
+        )
+        con.commit()
+    finally:
+        con.close()
+
+def _job_now_iso():
+    # Use timezone-aware UTC datetime (utcnow() is deprecated).
+    from datetime import timezone
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def _job_create(client_id: str, endpoint: str, message: str = "queued") -> str:
+    job_id = str(uuid.uuid4())
+    ts = _job_now_iso()
+    con = _job_db_connect()
+    try:
+        con.execute(
+            # CHANGE: store server_instance_id so we know
+            # which process owns this job.
+            "INSERT INTO jobs(job_id, client_id, endpoint, server_instance_id, status, message, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?)",
+            (job_id, client_id, endpoint, SERVER_INSTANCE_ID, "queued", message, ts, ts),
+        )
+        con.commit()
+    finally:
+        con.close()
+    return job_id
+
+def _job_update(job_id: str, *, status: str = None, message: str = None, result_json: str = None, error: str = None):
+    fields = []
+    values = []
+    if status is not None:
+        fields.append("status=?")
+        values.append(status)
+    if message is not None:
+        fields.append("message=?")
+        values.append(message)
+    if result_json is not None:
+        fields.append("result_json=?")
+        values.append(result_json)
+    if error is not None:
+        fields.append("error=?")
+        values.append(error)
+    fields.append("updated_at=?")
+    values.append(_job_now_iso())
+    values.append(job_id)
+    con = _job_db_connect()
+    try:
+        con.execute(f"UPDATE jobs SET {', '.join(fields)} WHERE job_id=?", values)
+        con.commit()
+    finally:
+        con.close()
+
+def _job_get(job_id: str):
+    con = _job_db_connect()
+    try:
+        cur = con.execute("SELECT * FROM jobs WHERE job_id=?", (job_id,))
+        row = cur.fetchone()
+        return dict(row) if row else None
+    finally:
+        con.close()
+
+def _job_get_active_for_client(client_id: str, endpoint: str = None):
+    con = _job_db_connect()
+    try:
+        if endpoint:
+            cur = con.execute(
+                "SELECT * FROM jobs WHERE client_id=? AND endpoint=? AND status IN ('queued','running') ORDER BY created_at DESC LIMIT 1",
+                (client_id, endpoint),
+            )
+        else:
+            cur = con.execute(
+                "SELECT * FROM jobs WHERE client_id=? AND status IN ('queued','running') ORDER BY created_at DESC LIMIT 1",
+                (client_id,),
+            )
+        row = cur.fetchone()
+        return dict(row) if row else None
+    finally:
+        con.close()
+
+_job_db_init()
+_job_reconcile_after_restart()
+# CHANGE: prune old finished jobs so jobs.db size stays bounded.
+_job_prune_old(days=30)
+
+@app.route('/job_status/<job_id>', methods=['GET'])
+def job_status(job_id):
+    job = _job_get(job_id)
+    if not job:
+        return jsonify({"status": 0, "message": "job not found", "job_id": job_id}), 404
+    # keep response compatible with your existing style: status=1 means ok
+    return jsonify({"status": 1, "job": job})
+
+@app.route('/job_result/<job_id>', methods=['GET'])
+def job_result(job_id):
+    job = _job_get(job_id)
+    if not job:
+        return jsonify({"status": 0, "message": "job not found", "job_id": job_id}), 404
+    if job.get("status") != "completed":
+        return jsonify({"status": 0, "message": "job not completed", "job_id": job_id, "job_status": job.get("status")}), 409
+    # result_json is stored as text (already JSON string from your original endpoint)
+    return app.response_class(job.get("result_json") or "", mimetype="application/json")
+
+@app.route('/active_job', methods=['GET'])
+def active_job():
+    client_id = request.args.get("client_id") or request.args.get("user") or ""
+    endpoint = request.args.get("endpoint")  # optional
+    if not client_id:
+        return jsonify({"status": 0, "message": "client_id is required"}), 400
+    job = _job_get_active_for_client(client_id, endpoint=endpoint)
+    return jsonify({"status": 1, "job": job})
+
+def _run_processfile_in_background(job_id: str, form_data: dict):
+    try:
+        _job_update(job_id, status="running", message="processing started")
+        # CHANGE: re-enter existing synchronous processFile()
+        # in a fresh request context so we can reuse all the
+        # original logic without duplicating it.
+        safe_data = dict(form_data or {})
+        safe_data["async"] = "0"
+        with app.test_request_context('/processFile', method='POST', data=safe_data):
+            resp = processFile()
+        # Flask may return (response, code) tuples or Response
+        # objects; normalize to plain text JSON string.
+        if isinstance(resp, tuple):
+            resp = resp[0]
+        result_text = resp.get_data(as_text=True) if hasattr(resp, "get_data") else str(resp)
+        _job_update(job_id, status="completed", message="processing completed", result_json=result_text)
+    except Exception:
+        _job_update(job_id, status="failed", message="processing failed", error=traceback.format_exc())
+
+def _run_processfileLeg1_in_background(job_id: str, form_data: dict):
+    try:
+        _job_update(job_id, status="running", message="processing started")
+        # Mirror of _run_processfile_in_background for the Leg1 route.
+        # Re-enter the synchronous processFile_leg1() in a fresh request context.
+        safe_data = dict(form_data or {})
+        safe_data["async"] = "0"
+        with app.test_request_context('/processFileleg1', method='POST', data=safe_data):
+            resp = processFile_leg1()
+        if isinstance(resp, tuple):
+            resp = resp[0]
+        result_text = resp.get_data(as_text=True) if hasattr(resp, "get_data") else str(resp)
+        _job_update(job_id, status="completed", message="processing completed", result_json=result_text)
+    except Exception:
+        _job_update(job_id, status="failed", message="processing failed", error=traceback.format_exc())
+
     
 def read_protected_excel(file_path, password, sheet_name=None):
     with open(file_path, 'rb') as file:
@@ -143,153 +370,236 @@ def get_users():
         else:
             return jsonify(user_list)
 
+# @app.route('/extract_db', methods=['POST'])
+# def extract_db():
+#     if request.method == 'POST':
+#         connection = connect_to_database()
+#         warehouse_data = []
+#         fci_data = []
+#         fps_data = []
+#         all_data = {}
+#         applicableCount = request.form.get('applicable')
+
+#         if connection.is_connected():
+#             cursor = connection.cursor()
+
+#             # -------- FCI / Warehouse --------
+#             query = "SELECT * FROM warehouse WHERE active='1'"
+#             cursor.execute(query)
+#             user = cursor.fetchall()
+            
+#             if user:
+#                 for row in user:
+#                     temp = {
+#                         'State Name':'',
+#                         'WH_District': row[0] or 'Ambala',
+#                         'WH_Name': row[1] or '',
+#                         'WH_ID': row[2] or 0,
+#                         'Type': row[3] or '',
+#                         'WH_Lat': row[5] or 0,
+#                         'WH_Long': row[6] or 0,
+#                         'Allotment_Bajra': row[10] or 0,
+#                         'Inventory': row[10] or 0,
+#                         'Owned/Rented':'',
+#                         'quantity of Wheat stored (Quintals)': 0
+#                     }
+#                     fci_data.append(temp)
+#             else:
+#                 fci_data.append({
+#                     'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
+#                     'Type':'','WH_Lat':0,'WH_Long':0,
+#                     'Allotment_Bajra':0,'Inventory':0,
+#                     'Owned/Rented':'','quantity of Wheat stored (Quintals)':0
+#                 })
+
+#             # -------- FPS --------
+#             cursor = connection.cursor()
+#             query = "SELECT * FROM fps WHERE active='1'"
+#             cursor.execute(query)
+#             user = cursor.fetchall()
+
+#             if user:
+#                 for row in user:
+#                     temp = {
+#                         'State Name':'',
+#                         'FPS_District': row[0] or 'Ambala',
+#                         'FPS_Name': row[1] or '',
+#                         'FPS_ID': row[2] or 0,
+#                         'Motorable/Non-Motorable': row[3] or '',
+#                         'FPS_Lat': row[4] or 0,
+#                         'FPS_Long': row[5] or 0,
+#                         'Demand_Wheat': (row[6] or 0) * int(applicableCount or 1),
+#                         'Demand_Bajra': (row[7] or 0) * int(applicableCount or 1),
+#                         'FPS_Tehsil':''
+#                     }
+#                     fps_data.append(temp)
+#             else:
+#                 fps_data.append({
+#                     'State Name':'','FPS_District':'Default','FPS_Name':'','FPS_ID':0,
+#                     'Motorable/Non-Motorable':'','FPS_Lat':0,'FPS_Long':0,
+#                     'Demand_Wheat':0,'Demand_Bajra':0,'FPS_Tehsil':''
+#                 })
+
+#             # -------- DCP / Hafed --------
+#             cursor = connection.cursor()
+#             query = "SELECT * FROM warehouse WHERE active='1'"
+#             cursor.execute(query)
+#             user = cursor.fetchall()
+#             connection.close()
+
+#             if user:
+#                 for row in user:
+#                     temp1 = {
+#                         'State Name':'',
+#                         'WH_District': row[0] or 'Ambala',
+#                         'WH_Name': row[1] or '',
+#                         'WH_ID': row[2] or 0,
+#                         'Type': row[3] or '',
+#                         'WH_Lat': row[4] or 0,
+#                         'WH_Long': row[5] or 0,
+#                         'Allotment_Wheat': row[9] or 0,
+#                         'quantity of Wheat stored (Quintals)': 0
+#                     }
+#                     warehouse_data.append(temp1)
+#             else:
+#                 warehouse_data.append({
+#                     'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
+#                     'Type':'','WH_Lat':0,'WH_Long':0,
+#                     'Allotment_Wheat':0,'quantity of Wheat stored (Quintals)':0
+#                 })
+
+#             # -------- SAVE JSON --------
+#             all_data["warehouse"] = warehouse_data
+#             all_data["fps"] = fps_data
+#             all_data["fci"] = fci_data
+
+#             with open('output.json', 'w') as json_file:
+#                 json.dump(all_data, json_file, indent=2)
+
+#         else:
+#             with open('output.json', 'w') as json_file:
+#                 json.dump(all_data, json_file, indent=2)
+
+#         # -------- LOAD JSON --------
+#         with open('output.json', 'r') as json_file:
+#             data = json.load(json_file)
+
+#         import pandas as pd
+
+#         wh = pd.DataFrame(data['warehouse'])
+#         fps = pd.DataFrame(data['fps'])
+#         fci = pd.DataFrame(data['fci'])
+
+#         # -------- COLUMN SELECTION --------
+#         fci = fci.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Bajra","Inventory","Owned/Rented","quantity of Wheat stored (Quintals)"]]
+#         fps = fps.loc[:,["State Name","FPS_District",'FPS_Name',"FPS_ID","Motorable/Non-Motorable",'FPS_Lat',"FPS_Long","Demand_Wheat","Demand_Bajra","FPS_Tehsil"]]
+#         wh = wh.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Wheat"]]
+
+#         # -------- CLEANING --------
+#         wh = wh.replace('', 0).fillna(0)
+#         fps = fps.replace('', 0).fillna(0)
+#         fci = fci.replace('', 0).fillna(0)
+
+#         wh = wh.drop_duplicates()
+#         fps = fps.drop_duplicates()
+#         fci = fci.drop_duplicates()
+
+#         # -------- TYPE CONVERSION --------
+#         wh['WH_ID'] = pd.to_numeric(wh['WH_ID'], errors='coerce').fillna(0)
+#         fps['FPS_ID'] = pd.to_numeric(fps['FPS_ID'], errors='coerce').fillna(0)
+#         fci['WH_ID'] = pd.to_numeric(fci['WH_ID'], errors='coerce').fillna(0)
+
+#         # -------- SAVE EXCEL --------
+#         with pd.ExcelWriter('Backend//Data_1.xlsx') as writer:
+#             wh.to_excel(writer, sheet_name='A.1 Warehouse', index=False)
+#             fps.to_excel(writer, sheet_name='A.2 FPS', index=False)
+#             fci.to_excel(writer, sheet_name='A.1 Hafed', index=False)
+
+#         return {"success":1}
+
 @app.route('/extract_db', methods=['POST'])
 def extract_db():
     if request.method == 'POST':
         connection = connect_to_database()
         warehouse_data = []
-        fci_data = []
         fps_data = []
         all_data = {}
-        applicableCount = request.form.get('applicable')
 
         if connection.is_connected():
             cursor = connection.cursor()
-
-            # -------- FCI / Warehouse --------
-            query = "SELECT * FROM warehouse WHERE active='1'"
+            query = "SELECT * FROM pc WHERE active='1'"
             cursor.execute(query)
             user = cursor.fetchall()
             
             if user:
                 for row in user:
-                    temp = {
-                        'State Name':'',
-                        'WH_District': row[0] or 'Ambala',
-                        'WH_Name': row[1] or '',
-                        'WH_ID': row[2] or 0,
-                        'Type': row[3] or '',
-                        'WH_Lat': row[5] or 0,
-                        'WH_Long': row[6] or 0,
-                        'Allotment_Bajra': row[10] or 0,
-                        'Inventory': row[10] or 0,
-                        'Owned/Rented':'',
-                        'quantity of Wheat stored (Quintals)': 0
-                    }
-                    fci_data.append(temp)
-            else:
-                fci_data.append({
-                    'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
-                    'Type':'','WH_Lat':0,'WH_Long':0,
-                    'Allotment_Bajra':0,'Inventory':0,
-                    'Owned/Rented':'','quantity of Wheat stored (Quintals)':0
-                })
-
-            # -------- FPS --------
+                    temp = {'State Name':'','WH_District': row[1], 'WH_Name': row[2], 'WH_ID': row[3], 'WH_Lat': row[4], 'WH_Long': row[5], 'Procurement_Mota': row[6],'Procurement_Patla': row[7],'Procutement_Saran': row[8],}
+                    warehouse_data.append(temp)
+                    
             cursor = connection.cursor()
-            query = "SELECT * FROM fps WHERE active='1'"
-            cursor.execute(query)
-            user = cursor.fetchall()
-
-            if user:
-                for row in user:
-                    temp = {
-                        'State Name':'',
-                        'FPS_District': row[0] or 'Ambala',
-                        'FPS_Name': row[1] or '',
-                        'FPS_ID': row[2] or 0,
-                        'Motorable/Non-Motorable': row[3] or '',
-                        'FPS_Lat': row[4] or 0,
-                        'FPS_Long': row[5] or 0,
-                        'Demand_Wheat': (row[6] or 0) * int(applicableCount or 1),
-                        'Demand_Bajra': (row[7] or 0) * int(applicableCount or 1),
-                        'FPS_Tehsil':''
-                    }
-                    fps_data.append(temp)
-            else:
-                fps_data.append({
-                    'State Name':'','FPS_District':'Default','FPS_Name':'','FPS_ID':0,
-                    'Motorable/Non-Motorable':'','FPS_Lat':0,'FPS_Long':0,
-                    'Demand_Wheat':0,'Demand_Bajra':0,'FPS_Tehsil':''
-                })
-
-            # -------- DCP / Hafed --------
-            cursor = connection.cursor()
-            query = "SELECT * FROM dcp WHERE active='1'"
+            query = "SELECT * FROM mill WHERE active='1'"
             cursor.execute(query)
             user = cursor.fetchall()
             connection.close()
 
             if user:
                 for row in user:
-                    temp1 = {
-                        'State Name':'',
-                        'WH_District': row[0] or 'Ambala',
-                        'WH_Name': row[1] or '',
-                        'WH_ID': row[2] or 0,
-                        'Type': row[3] or '',
-                        'WH_Lat': row[4] or 0,
-                        'WH_Long': row[5] or 0,
-                        'Allotment_Wheat': row[9] or 0,
-                        'quantity of Wheat stored (Quintals)': 0
-                    }
-                    warehouse_data.append(temp1)
-            else:
-                warehouse_data.append({
-                    'State Name':'','WH_District':'Default','WH_Name':'','WH_ID':0,
-                    'Type':'','WH_Lat':0,'WH_Long':0,
-                    'Allotment_Wheat':0,'quantity of Wheat stored (Quintals)':0
-                })
-
-            # -------- SAVE JSON --------
+                    temp = {'State Name':'','FPS_District': row[1], 'FPS_Name': row[2], 'FPS_ID': row[3], 'Type': row[4], 'FPS_Lat': row[5], 'FPS_Long': row[6], 'Storage_Mota': row[13],'Storage_Patla': row[14],'Storage_Saran': row[15],'Min_Mota': row[7],'Min_Patla': row[8],'Min_Saran': row[9] }
+                    fps_data.append(temp)
+                    #print(fps_data)
+                
             all_data["warehouse"] = warehouse_data
             all_data["fps"] = fps_data
-            all_data["fci"] = fci_data
-
-            with open('output.json', 'w') as json_file:
+            json_file_path = 'output.json'
+            with open(json_file_path, 'w') as json_file:
                 json.dump(all_data, json_file, indent=2)
-
         else:
-            with open('output.json', 'w') as json_file:
+            json_file_path = 'output.json'
+            with open(json_file_path, 'w') as json_file:
                 json.dump(all_data, json_file, indent=2)
-
-        # -------- LOAD JSON --------
-        with open('output.json', 'r') as json_file:
+        
+        json_file_path = 'output.json'
+        with open(json_file_path, 'r') as json_file:
             data = json.load(json_file)
-
-        import pandas as pd
 
         wh = pd.DataFrame(data['warehouse'])
         fps = pd.DataFrame(data['fps'])
-        fci = pd.DataFrame(data['fci'])
+        wh = wh.loc[:,["State Name","WH_District",'WH_Name',"WH_ID",'WH_Lat',"WH_Long","Procurement_Mota","Procurement_Patla","Procutement_Saran"]]
+        fps = fps.loc[:,["State Name","FPS_District",'FPS_Name',"FPS_ID","Type",'FPS_Lat',"FPS_Long","Storage_Mota","Storage_Patla","Storage_Saran","Min_Mota","Min_Patla","Min_Saran"]]
 
-        # -------- COLUMN SELECTION --------
-        fci = fci.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Bajra","Inventory","Owned/Rented","quantity of Wheat stored (Quintals)"]]
-        fps = fps.loc[:,["State Name","FPS_District",'FPS_Name',"FPS_ID","Motorable/Non-Motorable",'FPS_Lat',"FPS_Long","Demand_Wheat","Demand_Bajra","FPS_Tehsil"]]
-        wh = wh.loc[:,["State Name","WH_District",'WH_Name',"WH_ID","Type",'WH_Lat',"WH_Long","Allotment_Wheat"]]
+        # Rename the columns to make them valid Python identifiers
+        column_mapping = {
+            
+            'WH_District': 'WH_District',
+            'WH_ID': 'WH_ID',
+            'WH_Lat': 'WH_Lat',
+            'WH_Long': 'WH_Long',
+            'WH_Name': 'WH_Name'
+        }
 
-        # -------- CLEANING --------
-        wh = wh.replace('', 0).fillna(0)
-        fps = fps.replace('', 0).fillna(0)
-        fci = fci.replace('', 0).fillna(0)
+        wh.rename(columns=column_mapping, inplace=True)
+        wh.rename(columns=column_mapping, inplace=True)
+        
+        
+        
+        def convert_to_numeric(value):
+            try:
+                return pd.to_numeric(value)
+            except ValueError:
+                return value
 
-        wh = wh.drop_duplicates()
-        fps = fps.drop_duplicates()
-        fci = fci.drop_duplicates()
+        # Apply the function to the DataFrame
+        wh['WH_ID'] = wh['WH_ID'].apply(convert_to_numeric)
+        fps['FPS_ID'] = fps['FPS_ID'].apply(convert_to_numeric)
+        
 
-        # -------- TYPE CONVERSION --------
-        wh['WH_ID'] = pd.to_numeric(wh['WH_ID'], errors='coerce').fillna(0)
-        fps['FPS_ID'] = pd.to_numeric(fps['FPS_ID'], errors='coerce').fillna(0)
-        fci['WH_ID'] = pd.to_numeric(fci['WH_ID'], errors='coerce').fillna(0)
-
-        # -------- SAVE EXCEL --------
+        # Save DataFrames to Excel file
         with pd.ExcelWriter('Backend//Data_1.xlsx') as writer:
             wh.to_excel(writer, sheet_name='A.1 Warehouse', index=False)
             fps.to_excel(writer, sheet_name='A.2 FPS', index=False)
-            fci.to_excel(writer, sheet_name='A.1 Hafed', index=False)
 
         return {"success":1}
-       
+        
 
         
 @app.route('/extract_data', methods=['POST'])
@@ -1028,6 +1338,7 @@ def save_to_database_leg1(month, year, day):
     table_name = "optimiseddata_leg1_" + str(random_id)
     mill_table = "mill_leg1_" + str(random_id)
     warehouse_table = "warehouse_leg1_" + str(random_id)
+    mill_replica_table = "mill_replica_leg1_" + str(random_id)
     if connection.is_connected():
         cursor = connection.cursor()
         current_datetime = datetime.now()
@@ -1039,6 +1350,7 @@ def save_to_database_leg1(month, year, day):
             table_name = "optimiseddata_leg1_" + str(existingid)
             mill_table = "mill_leg1_" + str(existingid)
             warehouse_table = "warehouse_leg1_" + str(existingid)
+            mill_replica_table = "mill_replica_leg1_" + str(existingid)
             cursor.execute(sql)
         else:
             sql = "INSERT INTO optimised_table_leg1 (id, month, year, day, last_updated) VALUES ('" + random_id + "','" + month + "','" + year + "','" + day + "','" + formatted_datetime + "')";
@@ -1063,6 +1375,19 @@ def save_to_database_leg1(month, year, day):
         connection.commit()
         copy_warehouse_data = ("INSERT INTO " + warehouse_table + " SELECT * FROM warehouse WHERE active='1'")
         cursor.execute(copy_warehouse_data)
+        connection.commit()
+        
+        # Create Mill Replica Leg 1 table
+        mill_replica_drop_query = 'DROP TABLE IF EXISTS ' + mill_replica_table;
+        cursor.execute(mill_replica_drop_query)
+        connection.commit()
+        
+        create_replica_query = ("CREATE TABLE " + mill_replica_table + " (uniqueid VARCHAR(100) NOT NULL, district VARCHAR(100) NOT NULL, to_district VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL, id VARCHAR(100) NOT NULL, type VARCHAR(100) NOT NULL, latitude VARCHAR(100) NOT NULL, longitude VARCHAR(100) NOT NULL, incoming_min_mota VARCHAR(100) NOT NULL, incoming_min_patla VARCHAR(100) NOT NULL, incoming_min_saran VARCHAR(100) NOT NULL, outgoing_min_mota VARCHAR(100) NOT NULL, outgoing_min_patla VARCHAR(100) NOT NULL, outgoing_min_saran VARCHAR(100) NOT NULL, milling_capacity VARCHAR(100) NOT NULL, milling_capacity1 VARCHAR(100) NOT NULL, milling_capacity2 VARCHAR(100) NOT NULL, active VARCHAR(10) NOT NULL DEFAULT '1')")
+        cursor.execute(create_replica_query)
+        connection.commit()
+        
+        copy_replica_data = ("INSERT INTO " + mill_replica_table + " SELECT * FROM mill_replica WHERE active='1'")
+        cursor.execute(copy_replica_data)
         connection.commit()
         
         excel_file_path = 'Backend//Result_Sheet_leg1.xlsx'
@@ -1212,6 +1537,27 @@ def processCancel():
 def processFile():
     global stop_process
     stop_process = False
+    # CHANGE: if async=1, do not block this HTTP request;
+    # spawn a background job and just return a job_id.
+    if request.form.get("async") == "1":
+        client_id = (
+            request.form.get("client_id")
+            or request.form.get("username")
+            or request.form.get("user")
+            or ""
+        )
+        if not client_id:
+            # Still allow starting, but client won't be able to query via /active_job without a client_id.
+            client_id = "anonymous"
+        job_id = _job_create(client_id, endpoint="/processFile", message="queued")
+        form_dict = request.form.to_dict(flat=True)
+        # CHANGE: run heavy optimization in a separate OS process
+        # so the Flask server thread stays responsive for polling.
+        p = multiprocessing.Process(target=_run_processfile_in_background, args=(job_id, form_dict), daemon=True)
+        p.start()
+        return jsonify({"status": 1, "job_id": job_id, "message": "processing started"})
+    # END CHANGE (async start mode)
+
     json_data = request.form
     write_log("User -> " + " Optimization Start for leg2 Requested JSON -> " + str(json_data))
     scenario_type = request.form.get('type')
@@ -1222,6 +1568,7 @@ def processFile():
             month = request.form.get('month')        
             year = request.form.get('year')        
             day = request.form.get('day')
+            print(day)
         except Exception as e:
             data = {}
             data['status'] = 0
@@ -1562,7 +1909,7 @@ def processFile():
         Warehouse['Lat_Long_r'] = (
             Warehouse['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -1571,7 +1918,7 @@ def processFile():
         FPS['Lat_Long_r'] = (
             FPS['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -2146,7 +2493,7 @@ def processFile():
         Warehouse['Lat_Long_r'] = (
             Warehouse['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -2155,7 +2502,7 @@ def processFile():
         FPS['Lat_Long_r'] = (
             FPS['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -2730,7 +3077,7 @@ def processFile():
         Warehouse['Lat_Long_r'] = (
             Warehouse['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -2739,7 +3086,7 @@ def processFile():
         FPS['Lat_Long_r'] = (
             FPS['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -3008,14 +3355,14 @@ def processFile():
         
         
         
-        data['Demand'] = dfinal["quantity"].astype(float).sum()
+        data['Demand'] = pd.to_numeric(dfinal["quantity"], errors='coerce').fillna(0).sum()
         data['Demand_Baseline'] = "23,62,728"
         result1 = ((dfinal['quantity']) * dfinal['Distance']).sum()
         data['Total_QKM'] = float(result1)
 
         data['Total_QKM_Baseline'] = "4,99,58,425"
         
-        Total_Demand=dfinal["quantity"].astype(float).sum()
+        Total_Demand=pd.to_numeric(dfinal["quantity"], errors='coerce').fillna(0).sum()
         
         data['Average_Distance'] = float(round(result1, 2)) / Total_Demand
         data['Average_Distance_Baseline'] = "21.14"
@@ -3075,6 +3422,7 @@ def processFile():
             month = request.form.get('month')        
             year = request.form.get('year')        
             day = request.form.get('day')
+            print(day)
         except Exception as e:
             data = {}
             data['status'] = 0
@@ -3108,7 +3456,7 @@ def processFile():
        
         FCI = pd.read_excel(USN, sheet_name='A.1 Warehouse', index_col=None)
         FPS = pd.read_excel(USN, sheet_name='A.2 FPS', index_col=None)
-        print(FCI.columns)
+        # print(FCI.columns)
         FCI['WH_District'] = FCI['WH_District'].apply(lambda x: x.replace(' ', ''))
         FPS['FPS_District'] = FPS['FPS_District'].apply(lambda x: x.replace(' ', ''))
         
@@ -4071,7 +4419,7 @@ def processFile():
         data["FPS_Used"] = df5['To_ID'].nunique()
         data["FPS_Used_Baseline"] = "13,649"
         
-        total_demand = df10["quantity"].astype(float).sum()
+        total_demand = pd.to_numeric(df10["quantity"], errors='coerce').fillna(0).sum()
 
         data['Demand'] = total_demand
         data['Demand_Baseline'] ="23,62,728"
@@ -4145,6 +4493,24 @@ def processFile():
 def processFile_leg1():
     global stop_process
     stop_process = False
+    # CHANGE: if async=1, do not block this HTTP request;
+    # spawn a background job and just return a job_id.
+    if request.form.get("async") == "1":
+        client_id = (
+            request.form.get("client_id")
+            or request.form.get("username")
+            or request.form.get("user")
+            or ""
+        )
+        if not client_id:
+            client_id = "anonymous"
+        job_id = _job_create(client_id, endpoint="/processFileleg1", message="queued")
+        form_dict = request.form.to_dict(flat=True)
+        # CHANGE: run heavy optimization in a separate OS process
+        p = multiprocessing.Process(target=_run_processfileLeg1_in_background, args=(job_id, form_dict), daemon=True)
+        p.start()
+        return jsonify({"status": 1, "job_id": job_id, "message": "processing started"})
+    # END CHANGE (async start mode)
     scenario_type = request.form.get('type')
     '''scenario_type="Intra"'''
     if scenario_type == "Intra":
@@ -5749,7 +6115,7 @@ def processFile_leg1():
         Warehouse['Lat_Long_r'] = (
             Warehouse['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
@@ -5758,7 +6124,7 @@ def processFile_leg1():
         FCI['Lat_Long_r'] = (
             FCI['Lat_Long']
             .str.split(',', expand=True)
-            .astype(float)
+            .apply(pd.to_numeric, errors='coerce')
             .round(3)
             .astype(str)
             .agg(','.join, axis=1)
