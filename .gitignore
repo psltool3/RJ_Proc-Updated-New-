@@ -1,2 +1,5 @@
 *.log
 logs/
+
+# Large data files (>100MB) - exceeds GitHub file size limit
+pds_admin_raj/Backend/Backend/Distance_Initial_L2.xlsx
