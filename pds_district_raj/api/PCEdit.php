@@ -13,10 +13,21 @@ if(!SessionCheck()){
 	return;
 }
 
+if (isset($_POST["name"]) && !preg_match('/^[a-zA-Z0-9_\- ]+$/', $_POST["name"])) {
+    echo "Error : Invalid Name (only characters, numbers, underscores, hyphens, and spaces are allowed)";
+    exit();
+}
+
+if (isset($_POST["id"]) && !preg_match('/^[a-zA-Z0-9_\-]+$/', $_POST["id"])) {
+    echo "Error : Invalid ID (only characters, numbers, underscores, and hyphens are allowed, with no spaces)";
+    exit();
+}
+
+
 require('Header.php');
 
 function formatName($name) {
-	$name = preg_replace('/[^a-zA-Z0-9_ ]/', '', $name);
+	$name = preg_replace('/[^a-zA-Z0-9_\- ]/', '', $name);
     $name = ucwords(strtolower($name));
     return trim($name);
 }

@@ -159,7 +159,7 @@ try{
 					}
 					if (
 						!isset($column[$id]) ||
-						!preg_match('/^[A-Za-z0-9]+$/', $column[$id])
+						!preg_match('/^[a-zA-Z0-9_\-]+$/', $column[$id])
 					) {
 						echo "Error: Warehouse ID should not contain spaces or any special characters: " . ($column[$id] ?? 'Missing');
 						echo "<br>";
