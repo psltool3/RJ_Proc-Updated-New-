@@ -158,6 +158,15 @@ try{
 					echo "Error: Warehouse ID should not contain spaces or any special characters: " . ($column[$id] ?? 'Missing');
 					echo "<br>";
 					$redirect = 0;
+				}
+
+				if (
+					!isset($column[$name]) ||
+					!preg_match('/^[a-zA-Z0-9_\-\s]+$/', $column[$name])
+				) {
+					echo "Error: Warehouse Name should not contain special characters: " . ($column[$name] ?? 'Missing');
+					echo "<br>";
+					$redirect = 0;
 				}	
 
 				

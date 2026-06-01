@@ -7,12 +7,6 @@
             "dest_lat": 29.54
         },
         {
-            "src_lng": 73.75,
-            "src_lat": 29.56,
-            "dest_lng": 73.73,
-            "dest_lat": 29.54
-        },
-        {
             "src_lng": 73.9,
             "src_lat": 29.97,
             "dest_lng": 73.48,
@@ -27,8 +21,8 @@
         {
             "src_lng": 74.18,
             "src_lat": 29.91,
-            "dest_lng": 74.18,
-            "dest_lat": 29.91
+            "dest_lng": 75.84,
+            "dest_lat": 26.77
         },
         {
             "src_lng": 74.18,
@@ -203,12 +197,6 @@
             "src_lat": 29.33,
             "dest_lng": 73.93,
             "dest_lat": 26.74
-        },
-        {
-            "src_lng": 76.79,
-            "src_lat": 25.02,
-            "dest_lng": 76.5,
-            "dest_lat": 25.11
         }
     ]
 }
