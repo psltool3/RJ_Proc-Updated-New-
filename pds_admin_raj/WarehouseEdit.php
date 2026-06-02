@@ -109,7 +109,7 @@ else{
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><span class="fa fa-info"></span></span>
-                                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $name ? pattern="^[a-zA-Z0-9_\-\s]+$" title="Only characters, numbers, underscores, hyphens, and spaces are allowed">" required />
+                                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>" pattern="^[a-zA-Z0-9_\-\s]+$" title="Only characters, numbers, underscores, hyphens, and spaces are allowed" required />
                                                     </div>
                                                     <span class="help-block">Warehouse Name</span>
                                                 </div>
@@ -185,7 +185,7 @@ else{
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><span class="fa fa-info"></span></span>
-                                                        <input type="text" class="form-control" id="id" name="id" value="<?php echo $id ? pattern="^[a-zA-Z0-9_\-]+$" title="Only characters, numbers, underscores, and hyphens are allowed (no spaces)">" style="color: black; font-weight: bold;" readonly required />
+                                                        <input type="text" class="form-control" id="id" name="id" value="<?php echo $id; ?>" pattern="^[a-zA-Z0-9_\-]+$" title="Only characters, numbers, underscores, and hyphens are allowed (no spaces)" style="color: black; font-weight: bold;" readonly required />
                                                     </div>
                                                     <span class="help-block">Warehouse ID</span>
                                                 </div>
