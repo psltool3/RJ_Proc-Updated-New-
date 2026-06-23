@@ -93,29 +93,22 @@
         padding: 10px;
         margin-left: 119px;
       }
-      .login-container {
-        background-image: url("img/Raj1.png");
-        background-image: url("img/Raj2.png");
-        background-image: url("img/Raj3.png");
-
-        background-size: cover;
-      }
-      .login-container {
+     .login-container {
         background-size: cover;
         background-position: center;
-        animation: slideshow 10s infinite;
+        animation: slideshow 12s infinite;
+        transition: background-image 1s ease-in-out;
       }
 
       @keyframes slideshow {
-        0%,
-        100% {
-          background-image: url("img/Raj1.png");
+        0%, 100% {
+          background-image: url("img/proc1.jpeg");
         }
         33% {
-          background-image: url("img/Raj2.png");
+          background-image: url("img/proc2.jpeg");
         }
         66% {
-          background-image: url("img/Raj3.png");
+          background-image: url("img/proc3.jpeg");
         }
       }
 
