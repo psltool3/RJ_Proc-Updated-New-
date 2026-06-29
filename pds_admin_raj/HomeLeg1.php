@@ -762,24 +762,39 @@ require('Header.php');
 		toggleButton.setAttribute('data-content', 'Off');
 	}
 
+	var isJobRunning = false;
+	var controller = null;
+
 	function pollJobStatus(jobId) {
+		if (!isJobRunning) return; // Exit if user cancelled
+		
 		fetch(pythonUrl + 'job_status/' + jobId)
 			.then(response => response.json())
 			.then(data => {
+				if (!isJobRunning) return; // Double-check cancel state
+				
 				if (data.status == 1) {
 					if (data.job.status === 'completed') {
 						fetch(pythonUrl + 'job_result/' + jobId)
 							.then(response => response.json())
-							.then(resultData => handleOptimizationResult(resultData));
+							.then(resultData => {
+								if (!isJobRunning) return;
+								handleOptimizationResult(resultData);
+							});
 					} else if (data.job.status === 'failed') {
 						alert("Optimization failed: " + (data.job.error || data.job.message));
-						resetUI();
+						var toggleButton = document.querySelector('.toggle');
+						toggleButton.classList.replace('toggle--on', 'toggle--off');
+						toggleButton.setAttribute('data-content', 'Off');
+						document.getElementById("processingPopup").style.display = "none";
+						document.getElementById("cancel-request").style.display = "none";
 					} else {
 						setTimeout(() => pollJobStatus(jobId), 3000);
 					}
 				}
 			})
 			.catch(err => {
+				if (!isJobRunning) return;
 				console.error("Polling error:", err);
 				setTimeout(() => pollJobStatus(jobId), 5000);
 			});
@@ -846,13 +861,39 @@ require('Header.php');
 	}
 
 	function cancelRequest() {
+		isJobRunning = false;
 		if (controller) {
-			controller.abort();
-			const formData = new FormData();
-			fetch(pythonUrl + 'processCancel', { method: 'POST', body: formData })
-				.then(response => response.json())
-				.then(data => {});
+			try {
+				controller.abort(); // Abort the fetch request using the AbortController
+			} catch (e) {
+				console.error("Error aborting controller:", e);
+			}
+			console.log('Request cancelled.');
 		}
+		
+		const formData = new FormData();
+		var userElem = document.getElementById("username");
+		if(userElem) {
+			formData.append('user', userElem.value); // Send User ID to cancel
+		}
+		
+		fetch(pythonUrl + 'processCancel', { method: 'POST', body: formData })
+			.then(response => response.json())
+			.then(data => {
+				var toggleButton = document.querySelector('.toggle');
+				toggleButton.classList.replace('toggle--on', 'toggle--off');
+				toggleButton.setAttribute('data-content', 'Off');
+				document.getElementById("processingPopup").style.display = "none";
+				document.getElementById("cancel-request").style.display = "none";
+			})
+			.catch(err => {
+				console.error("Error sending cancel request:", err);
+				var toggleButton = document.querySelector('.toggle');
+				toggleButton.classList.replace('toggle--on', 'toggle--off');
+				toggleButton.setAttribute('data-content', 'Off');
+				document.getElementById("processingPopup").style.display = "none";
+				document.getElementById("cancel-request").style.display = "none";
+			});
 	}
 
 	function toggleState(element) {
