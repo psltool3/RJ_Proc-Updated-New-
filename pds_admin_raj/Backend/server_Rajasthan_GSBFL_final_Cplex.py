@@ -2946,24 +2946,24 @@ def processFile():
         data["Scenario_Baseline"] = "Baseline"
         
         data["WH_Used"] = dfinal['From_ID'].nunique()
-        data["WH_Used_Baseline"] = "6121"
+        data["WH_Used_Baseline"] = "257"
         
         data["FPS_Used"] = dfinal['To_ID'].nunique()
-        data["FPS_Used_Baseline"] = "2404"
+        data["FPS_Used_Baseline"] = "127"
         
         
         
         data['Demand'] = pd.to_numeric(dfinal["quantity"], errors='coerce').fillna(0).sum()
-        data['Demand_Baseline'] = "4,73,35,812"
+        data['Demand_Baseline'] = "7,57,84,376"
         result1 = ((dfinal['quantity']) * dfinal['Distance']).sum()
         data['Total_QKM'] = float(result1)
 
-        data['Total_QKM_Baseline'] = "1,04,96,90,464"
+        data['Total_QKM_Baseline'] = "4,39,18,25,467"
         
         Total_Demand=pd.to_numeric(dfinal["quantity"], errors='coerce').fillna(0).sum()
         
         data['Average_Distance'] = float(round(result1, 2)) / Total_Demand
-        data['Average_Distance_Baseline'] = "22.175"
+        data['Average_Distance_Baseline'] = "57.95"
 
         if stop_process==True:
             data = {}
@@ -4057,21 +4057,21 @@ def processFile():
         data["Scenario_Baseline"] = "Baseline"
         
         data["WH_Used"] = df5['From_ID'].nunique()
-        data["WH_Used_Baseline"] = "198"
+        data["WH_Used_Baseline"] = "257"
         
         data["FPS_Used"] = df5['To_ID'].nunique()
-        data["FPS_Used_Baseline"] = "13,649"
+        data["FPS_Used_Baseline"] = "127"
         
         total_demand = pd.to_numeric(df10["quantity"], errors='coerce').fillna(0).sum()
 
         data['Demand'] = total_demand
-        data['Demand_Baseline'] ="23,62,728"
+        data['Demand_Baseline'] ="7,57,84,376"
         
         data['Total_QKM'] = float(result)
-        data['Total_QKM_Baseline'] = "4.99.58.425"
+        data['Total_QKM_Baseline'] = "4,39,18,25,467"
         
         data['Average_Distance'] = (float(round(result, 2)) / total_demand)
-        data['Average_Distance_Baseline'] = "21.14"
+        data['Average_Distance_Baseline'] = "57.95"
 
         if stop_process==True:
             data = {}
